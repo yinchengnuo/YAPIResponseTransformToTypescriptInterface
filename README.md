@@ -1,0 +1,6 @@
+
+## YAPIResponseTransformToTypescriptInterface# YAPIResponseTransformToTypescriptInterface
+# YAPIResponseTransformToTypescriptInterface
+# YAPIResponseTransformToTypescriptInterface
+# YAPIResponseTransformToTypescriptInterface
+# YAPIResponseTransformToTypescriptInterface
