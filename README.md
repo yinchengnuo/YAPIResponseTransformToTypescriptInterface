@@ -1,7 +1,6 @@
+<!--
+ * @Description:MD
+ * @Autor: 尹成诺
+-->
 
-## YAPIResponseTransformToTypescriptInterface# YAPIResponseTransformToTypescriptInterface
-# YAPIResponseTransformToTypescriptInterface
-# YAPIResponseTransformToTypescriptInterface
-# YAPIResponseTransformToTypescriptInterface
-# YAPIResponseTransformToTypescriptInterface
-# YAPIResponseTransformToTypescriptInterface
+## YAPIResponseTransformToTypescriptInterface
