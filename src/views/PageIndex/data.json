@@ -1,0 +1,157 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "status": {
+      "type": "number"
+    },
+    "message": {
+      "type": "null"
+    },
+    "data": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "type": {
+          "type": "number"
+        },
+        "state": {
+          "type": "number"
+        },
+        "appraisalCycle": {
+          "type": "string"
+        },
+        "deptId": {
+          "type": "string"
+        },
+        "deptName": {
+          "type": "null"
+        },
+        "modularList": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "templateId": {
+                "type": "null"
+              },
+              "templateUtilityId": {
+                "type": "null"
+              },
+              "title": {
+                "type": "string"
+              },
+              "weight": {
+                "type": ["number", "null"]
+              },
+              "dimensionList": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number"
+                    },
+                    "templateId": {
+                      "type": "null"
+                    },
+                    "templateUtilityId": {
+                      "type": "null"
+                    },
+                    "modularId": {
+                      "type": "number"
+                    },
+                    "type": {
+                      "type": "null"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "weight": {
+                      "type": "null"
+                    },
+                    "isCustom": {
+                      "type": "number"
+                    },
+                    "customList": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "number"
+                          },
+                          "templateId": {
+                            "type": "null"
+                          },
+                          "modularId": {
+                            "type": "number"
+                          },
+                          "dimensionId": {
+                            "type": "number"
+                          },
+                          "type": {
+                            "type": "number"
+                          },
+                          "title": {
+                            "type": "string"
+                          },
+                          "num": {
+                            "type": "null"
+                          },
+                          "templateUtilityId": {
+                            "type": "null"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "templateId",
+                          "modularId",
+                          "dimensionId",
+                          "type",
+                          "title",
+                          "num",
+                          "templateUtilityId"
+                        ]
+                      }
+                    },
+                    "targetList": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "templateId",
+                    "templateUtilityId",
+                    "modularId",
+                    "type",
+                    "title",
+                    "weight",
+                    "isCustom",
+                    "customList",
+                    "targetList"
+                  ]
+                }
+              }
+            },
+            "required": ["id", "templateId", "templateUtilityId", "title", "weight", "dimensionList"]
+          }
+        }
+      }
+    },
+    "rel": {
+      "type": "boolean"
+    }
+  }
+}
