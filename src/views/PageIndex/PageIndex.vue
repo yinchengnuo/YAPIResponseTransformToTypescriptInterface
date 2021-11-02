@@ -42,7 +42,6 @@
 <script setup lang="ts">
 import { ref, Ref } from 'vue'
 
-// import data from './data.json'
 import check from '@/utils/check'
 import transform from '@/utils/transform'
 import stringify from '@/utils/stringify'
@@ -70,7 +69,7 @@ const paste = (): void => {
     .readText()
     .then((text: string) => {
       if (check(text)) {
-        inputDom.value = JSON.stringify(transform(JSON.parse(text)), null, 2)
+        inputDom.value = JSON.stringify(JSON.parse(text), null, 2)
         outputDom.value = 'interface Interface' + stringify(transform(JSON.parse(text)))
         message.success('转换成功')
       } else {
