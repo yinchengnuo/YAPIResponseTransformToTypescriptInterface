@@ -1,0 +1,51 @@
+.PageIndex {
+  .how_to_use {
+    font-size: 24px;
+    vertical-align: middle;
+  }
+  .editor {
+    padding: 8px;
+    color: #000;
+    overflow-y: auto;
+    font-weight: bold;
+    position: relative;
+    border-radius: 6px;
+    box-sizing: border-box;
+    height: calc(100vh - 139px);
+    border: 1px solid #cac9c9;
+    &::-webkit-scrollbar {
+      width: 10px;
+      height: 10px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: #000;
+      border-radius: 6px;
+    }
+    &::-webkit-scrollbar-track {
+      border-radius: 6px;
+      background: #cac9c9;
+    }
+    &.value {
+      &::after {
+        display: none;
+      }
+    }
+    &::after {
+      top: 8px;
+      left: 8px;
+      color: #cac9c9;
+      font-style: italic;
+      position: absolute;
+    }
+    &.input {
+      &::after {
+        content: "请粘贴 SchemaJson / JSObject";
+      }
+    }
+    &.output {
+      &::after {
+        content: "无输出...";
+      }
+    }
+  }
+}

@@ -1,4 +1,32 @@
-{
+export const JSObject = `{
+  a: 1,
+  b: 'b',
+  c: false,
+  d: ['d', 'd', 'd'],
+  f: {
+    fa: 1,
+    fb: 'b',
+    fc: true
+  },
+  g: [
+    {
+      ga: 1,
+      gb: false
+    }
+  ],
+  h: [
+    [1, 1, 1],
+    [
+      {
+        h1: false,
+        h2: 'h2'
+      }
+    ]
+  ]
+}
+`
+
+export const SchemaJson = `{
   "$schema": "http://json-schema.org/draft-04/schema#",
   "type": "object",
   "properties": {
@@ -27,3 +55,4 @@
     "success": { "type": "boolean", "description": "执行结果" }
   }
 }
+`
