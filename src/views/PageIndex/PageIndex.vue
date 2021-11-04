@@ -101,7 +101,7 @@ const paste = (): void => {
       text = text
         .trim()
         .replaceAll("'", '"')
-        .replace(/\w+(?=\s*:)/g, '"$&"')
+        .replace(/(?<!")\b\w+(?=\s*:)/g, '"$&"')
       // 检查数据是否为 json
       if (check(text)) {
         inputDom.value = JSON.stringify(JSON.parse(text), null, 2)
@@ -161,6 +161,18 @@ const tags = [
     box-sizing: border-box;
     height: calc(100vh - 139px);
     border: 1px solid #cac9c9;
+    &::-webkit-scrollbar {
+      width: 10px;
+      height: 10px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: #000;
+      border-radius: 6px;
+    }
+    &::-webkit-scrollbar-track {
+      border-radius: 6px;
+      background: #cac9c9;
+    }
     &.value {
       &::after {
         display: none;

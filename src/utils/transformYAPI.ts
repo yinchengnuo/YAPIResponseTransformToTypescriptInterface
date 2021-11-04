@@ -11,7 +11,7 @@ const setConfig = (type: string, item: JsonSchema, config: Config): string => {
   if (config.replaceNull && type === 'null') {
     type = 'any'
   }
-  if (config.showDescription) {
+  if (config.showDescription && item.description) {
     type += ` // ${item.description}`
   }
   return type
