@@ -157,7 +157,10 @@ const paste = (): void => {
  * @return {*}
  */
 const click = (): void => {
-  message.info('点击粘贴按钮粘贴数据')
+  message.destroy()
+  if (!inputDom.value) {
+    message.info('点击粘贴按钮粘贴数据')
+  }
 }
 
 /**
