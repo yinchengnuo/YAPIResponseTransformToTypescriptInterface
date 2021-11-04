@@ -59,7 +59,7 @@
       </a-row>
       <template #footer>
         <a-row>
-          <pre v-html="inputDom" class="editor input flex1" :class="{ value: inputDom }" />
+          <pre v-html="inputDom" class="editor input flex1" :class="{ value: inputDom }" @click="click" />
           <a-divider class="h100" type="vertical" />
           <pre v-html="outputDom" class="editor output flex1" :class="{ value: outputDom }" />
         </a-row>
@@ -149,6 +149,15 @@ const paste = (): void => {
     .readText()
     .then(handle)
     .catch(() => message.error('粘贴失败，请允许应用访问剪切板'))
+}
+
+/**
+ * @description: 当用户点击 input 区域，提示用户点击粘贴按钮
+ * @param {*}
+ * @return {*}
+ */
+const click = (): void => {
+  message.info('点击粘贴按钮粘贴数据')
 }
 
 /**

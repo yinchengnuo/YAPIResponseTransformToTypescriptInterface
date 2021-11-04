@@ -10,7 +10,7 @@ Typescript 作为 Javascript 的超集，补起了 JavaScript 的类型短板。
 
 在这种情况下，使用 Typescript 类型系统手动为每个字段定义类型是不现实的。
 
-为了解决这个问题，就有了 [YAPIResponseTransformToTypescriptInterface](http://10.106.16.87:50001/app/yapi/)。
+为了解决这个问题，就有了 [YAPIResponseTransformToTypescriptInterface](https://static-511dda13-cfb2-4946-bc45-46c58a9099bc.bspapp.com)。
 
 ## 如何使用
 
@@ -56,7 +56,7 @@ const state = {
 }
 ```
 
-复制后进入 [http://10.106.16.87:50001/app/yapi/](http://10.106.16.87:50001/app/yapi/) 点击 粘贴 按钮。
+复制后进入 [YAPIResponseTransformToTypescriptInterface](https://static-511dda13-cfb2-4946-bc45-46c58a9099bc.bspapp.com) 点击 粘贴 按钮。
 
 即可在 输出 Typescript Interface：看到：
 
@@ -146,7 +146,7 @@ const state: Interface = {
 {"$schema":"http://json-schema.org/draft-04/schema#","type":"object","properties":{"status":{"type":"number"},"message":{"type":"null"},"data":{"type":"object","properties":{"id":{"type":"string"},"templateUtilityId":{"type":"string"},"title":{"type":"string"},"type":{"type":"number"},"appraisalCycle":{"type":"string"},"deptName":{"type":"string"},"deptId":{"type":"string"},"state":{"type":"number"},"crtName":{"type":"string"},"crtTime":{"type":"string"},"crtJobNo":{"type":"string"},"updTime":{"type":"string"},"updName":{"type":"string"},"updJobNo":{"type":"null"},"selfScore":{"type":"null"},"teamScore":{"type":"null"},"selfEvaluate":{"type":"null"},"managerEvaluate":{"type":"null"},"checkTime":{"type":"null"},"checkJobNo":{"type":"null"},"checkName":{"type":"null"},"relationList":{"type":"null"},"modularList":{"type":"array","items":{"type":"object","properties":{"id":{"type":"number"},"templateId":{"type":"null"},"templateUtilityId":{"type":"null"},"title":{"type":"string"},"weight":{"type":["number","null"]},"dimensionList":{"type":"array","items":{"type":"object","properties":{"id":{"type":"number"},"pbcId":{"type":"string"},"templateUtilityId":{"type":"string"},"modularId":{"type":"number"},"dimensionId":{"type":"null"},"title":{"type":"string"},"weight":{"type":"null"},"type":{"type":"null"},"isCustom":{"type":"number"},"complete":{"type":"null"},"selfScore":{"type":"null"},"teamScore":{"type":"null"},"customList":{"type":"array","items":{"type":"object","properties":{"id":{"type":"number"},"pbcId":{"type":"string"},"modularId":{"type":"number"},"dimensionId":{"type":"number"},"type":{"type":"number"},"title":{"type":"string"},"content":{"type":"string"},"templateUtilityId":{"type":"string"},"targetCustomUtilityId":{"type":"number"}},"required":["id","pbcId","modularId","dimensionId","type","title","content","templateUtilityId","targetCustomUtilityId"]}},"targetList":{"type":"array","items":{"type":"string"}}},"required":["id","pbcId","templateUtilityId","modularId","dimensionId","title","weight","type","isCustom","complete","selfScore","teamScore","customList","targetList"]}}},"required":["id","templateId","templateUtilityId","title","weight","dimensionList"]}}}},"rel":{"type":"boolean"}}}
 ```
 
-进入 [http://10.106.16.87:50001/app/yapi/](http://10.106.16.87:50001/app/yapi/) 点击 粘贴 按钮。
+进入 [YAPIResponseTransformToTypescriptInterface](https://static-511dda13-cfb2-4946-bc45-46c58a9099bc.bspapp.com) 点击 粘贴 按钮。
 
 即可在 输出 Typescript Interface：看到：
 
