@@ -1,7 +1,3 @@
-/*
- * @Description: vite.config.ts
- * @Autor: 尹成诺
- */
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 export default defineConfig({
@@ -11,5 +7,15 @@ export default defineConfig({
     alias: {
       '@': '/src'
     }
+  },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        charset: false
+      }
+    }
+  },
+  build: {
+    chunkSizeWarningLimit: 2048
   }
 })
