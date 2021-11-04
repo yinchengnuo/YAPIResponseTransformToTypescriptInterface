@@ -1,31 +1,35 @@
-import type from './type'
+import format from './format'
+import transformJS from './transformJS'
+import transformYAPI from './transformYAPI'
 
-export default ({ properties }: any): any => {
-  const result = {}
-  const transform = (data: any, result: any): void => {
-    for (const prop in data) {
-      if (type(data[prop].type) === 'object') {
-        result[prop] = {}
-        transform(data[prop].properties, result[prop])
-        continue
-      }
-      if (type(data[prop].type) === 'array') {
-        if (type(data[prop].items.type) === 'object') {
-          result[prop] = [{}]
-          transform(data[prop].items.properties, result[prop][0])
-          continue
-        }
-        if (type(data[prop].items.type) === 'array') {
-          result[prop] = [[]]
-          transform(data[prop].items.properties, result[prop][0])
-          continue
-        }
-        result[prop] = [type(data[prop].items.type)]
-        continue
-      }
-      result[prop] = type(data[prop].type)
-    }
+export interface JsonSchema {
+  $schema: string;
+  items: JsonSchema;
+  description: string;
+  type: string | string[];
+  properties: {
+    [_: string]: JsonSchema;
+  };
+}
+
+export interface Config {
+  tabSize: number;
+  replaceNull: boolean;
+  interfaceName: string;
+  showDescription: boolean;
+}
+
+/**
+ * @description: 根据 json 类型分发算法
+ * @param {string} text
+ * @param {Config} config
+ * @return {string}
+ */
+export default (text: string, config: Config): string => {
+  const data = JSON.parse(text) as JsonSchema
+  if (data.type === 'object' && data.$schema === 'http://json-schema.org/draft-04/schema#' && data.properties && Reflect.ownKeys(data.properties).length) {
+    return `interface ${config.interfaceName} ${format(transformYAPI(data, config), config)}`
+  } else {
+    return `interface ${config.interfaceName} ${format(transformJS(data as object), config)}`
   }
-  transform(properties, result)
-  return result
 }

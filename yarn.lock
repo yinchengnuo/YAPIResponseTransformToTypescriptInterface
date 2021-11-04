@@ -1382,6 +1382,11 @@
   dependencies:
     "function-bind" "^1.1.1"
 
+"highlight.js@^11.3.1":
+  "integrity" "sha1-gTB47zqlGcYXAPhP6QRyMcXcMpE="
+  "resolved" "https://registry.npmmirror.com/highlight.js/download/highlight.js-11.3.1.tgz"
+  "version" "11.3.1"
+
 "htmlparser2@^6.1.0":
   "integrity" "sha1-xNditsM3GgXb5l6UrkOp+EX7j7c="
   "resolved" "https://registry.nlark.com/htmlparser2/download/htmlparser2-6.1.0.tgz?cache=0&sync_timestamp=1631386311915&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fhtmlparser2%2Fdownload%2Fhtmlparser2-6.1.0.tgz"

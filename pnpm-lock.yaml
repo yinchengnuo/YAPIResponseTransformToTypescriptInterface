@@ -14,7 +14,6 @@ specifiers:
   eslint-plugin-vue: ^8.0.3
   husky: ^7.0.4
   lint-staged: ^11.2.6
-  monaco-editor: ^0.29.1
   prettier: ^2.4.1
   sass: ^1.43.4
   typescript: ^4.3.2
@@ -26,7 +25,6 @@ specifiers:
 
 dependencies:
   ant-design-vue: registry.npmmirror.com/ant-design-vue/2.2.8_8612dc571a800641003b6ef0ef757662
-  monaco-editor: registry.npmmirror.com/monaco-editor/0.29.1
   vue: registry.npmmirror.com/vue/3.2.20
   vue-router: registry.npmmirror.com/vue-router/4.0.12_vue@3.2.20
   vuex: registry.nlark.com/vuex/4.0.2_vue@3.2.20
@@ -3363,12 +3361,6 @@ packages:
       slice-ansi: registry.nlark.com/slice-ansi/4.0.0
       wrap-ansi: registry.nlark.com/wrap-ansi/6.2.0
     dev: true
-
-  registry.npmmirror.com/monaco-editor/0.29.1:
-    resolution: {integrity: sha1-buk9ilMgcE1I/XBYIE3u1yQpwCA=, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/monaco-editor/download/monaco-editor-0.29.1.tgz}
-    name: monaco-editor
-    version: 0.29.1
-    dev: false
 
   registry.npmmirror.com/ms/2.0.0:
     resolution: {integrity: sha1-VgiurfwAvmwpAd9fmGF4jeDVl8g=, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/ms/download/ms-2.0.0.tgz?cache=0&sync_timestamp=1632788710719&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Fms%2Fdownload%2Fms-2.0.0.tgz}
