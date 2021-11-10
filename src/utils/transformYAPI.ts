@@ -65,9 +65,7 @@ export default (data: JsonSchema, config: Config): object => {
           continue
         }
         if (type(data[prop].items, config).startsWith('array')) {
-          result[prop] = [[]]
-          transform(data[prop].items.properties, result[prop][0])
-          continue
+          throw new Error('数据中存在多维数组，暂不支持转换')
         }
         result[prop] = [type(data[prop].items, config)]
         continue

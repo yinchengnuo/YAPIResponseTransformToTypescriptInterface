@@ -69,17 +69,17 @@
 </template>
 
 <script setup lang="ts">
-import { JSObject, SchemaJson } from './data'
 import Avatar from '@/assets/my.png'
+import { JSObject, SchemaJson } from './data'
+
 import { ref, Ref, reactive, computed, ComputedRef } from 'vue'
 
 import { message } from 'ant-design-vue'
 import { QuestionCircleOutlined } from '@ant-design/icons-vue'
 
-import check from '@/utils/check'
 import transform, { Config } from '@/utils/transform'
 
-message.config({ top: '300px' })
+message.config({ top: 'calc(50vh - 30px)' })
 
 // 标签数据
 const tags = [
@@ -108,8 +108,14 @@ const inputDom: Ref<string> = ref('')
 
 // 输出的 JOSN
 const outputDom: ComputedRef<string> = computed((): string => {
-  if (inputDom.value && check(inputDom.value)) {
-    return transform(inputDom.value, config)
+  if (inputDom.value) {
+    try {
+      return transform(inputDom.value, config)
+    } catch (error) {
+      message.destroy()
+      message.info('无法转换')
+      return ''
+    }
   }
   return ''
 })
@@ -129,12 +135,10 @@ const handle = (text: string): void => {
   text = text.replaceAll("'", '"')
   // 为没有引号的 JSObject key 加上引号
   text = text.replace(/(?<!")\b\w+(?=\s*:)/g, '"$&"')
-  // 检查数据是否为 json
-  if (check(text)) {
+  try {
     inputDom.value = JSON.stringify(JSON.parse(text), null, 2)
-  } else {
+  } catch (error) {
     inputDom.value = text
-    message.info('无法转换，请粘贴 Schema JSON 格式文本')
   }
 }
 
@@ -157,8 +161,8 @@ const paste = (): void => {
  * @return {*}
  */
 const click = (): void => {
-  message.destroy()
   if (!inputDom.value) {
+    message.destroy()
     message.info('点击粘贴按钮粘贴数据')
   }
 }
@@ -175,6 +179,7 @@ const copy = (): void => {
       .then(() => message.success('复制成功'))
       .catch(() => message.error('复制失败，请允许应用访问剪切板'))
   } else {
+    message.destroy()
     message.info('输出无数据')
   }
 }

@@ -2,7 +2,7 @@ import { message } from 'ant-design-vue'
 import { Result } from './transformYAPI'
 
 /**
- * @description: 获取数据类型
+ * @description: 获取JS数据类型
  * @param {Result} data
  * @return {string}
  */
@@ -42,7 +42,12 @@ export default (data: Result | Result[]): Result => {
         result[prop] = [type(data[prop][0])]
         continue
       }
-      result[prop] = type(data[prop])
+      if (type(data) === 'object') {
+        result[prop] = type(data[prop])
+      } else {
+        result[0] = type(data[0])
+        continue
+      }
     }
   }
   transform(data, result)
