@@ -17,6 +17,7 @@
         "@typescript-eslint"
     ],
     "rules": {
-        "max-len": ["error", { "code": 180 }]
+        "max-len": ["error", { "code": 180 }], // 单行代码最大长度
+        "vue/multi-word-component-names": "off" // 组件名称不必是两个单词
     }
 }

@@ -1,16 +1,16 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
-import PageIndex from '@/views/PageIndex/PageIndex.vue'
+import Index from '@/views/Index/index.vue'
 
 export const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    name: 'PageIndex',
-    component: PageIndex
+    name: 'Index',
+    component: Index
   },
   {
     path: '/:catchAll(.*)',
-    name: 'PageNotFound',
-    component: () => import('@/views/PageNotFound/PageNotFound.vue')
+    name: '404',
+    component: () => import('@/views/404/index.vue')
   }
 ]
 
