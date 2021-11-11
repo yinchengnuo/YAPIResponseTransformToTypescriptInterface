@@ -4,7 +4,8 @@
     "paths": {
       "@/*": ["src/*"]
     },
-    // "isolatedModules": true,
+    "skipLibCheck": true,
+    "isolatedModules": true,
     "target": "esnext",
     "module": "esnext",
     "moduleResolution": "node",
