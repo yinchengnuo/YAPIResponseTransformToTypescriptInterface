@@ -186,5 +186,5 @@ const copy = (): void => {
 </script>
 
 <style lang="scss" scoped>
-@import "./PageIndex.scss";
+@import "./index.scss";
 </style>

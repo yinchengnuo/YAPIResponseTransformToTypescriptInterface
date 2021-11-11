@@ -1,7 +1,9 @@
 <template>
   <div class="Test">
-    <div class="a">aaa</div>
-    <div class="b">bbb</div>
+    <div class="w">
+      <div class="a">aaa</div>
+      <div class="b">bbb</div>
+    </div>
   </div>
 </template>
 

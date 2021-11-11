@@ -8,6 +8,11 @@ export const routes: Array<RouteRecordRaw> = [
     component: Index
   },
   {
+    path: '/test',
+    name: 'Test',
+    component: () => import('@/views/test/index.vue')
+  },
+  {
     path: '/:catchAll(.*)',
     name: '404',
     component: () => import('@/views/404/index.vue')
