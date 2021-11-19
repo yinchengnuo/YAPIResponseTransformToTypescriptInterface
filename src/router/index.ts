@@ -1,16 +1,26 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
-import Index from '@/views/Index/index.vue'
+import Index from '@/views/index/index.vue'
 
 export const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    name: 'Index',
+    name: 'index',
     component: Index
   },
   {
+    path: '/vue',
+    name: 'vue',
+    component: () => import('@/views/vue/index.vue')
+  },
+  {
     path: '/test',
-    name: 'Test',
+    name: 'test',
     component: () => import('@/views/test/index.vue')
+  },
+  {
+    path: '/vue3',
+    name: 'vue3',
+    component: () => import('@/views/vue3/index.vue')
   },
   {
     path: '/:catchAll(.*)',

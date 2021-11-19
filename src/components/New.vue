@@ -1,11 +1,11 @@
 <template>
-  <div class="NewCom">NewCom</div>
+  <div class="New">New</div>
 </template>
 
 <script setup lang="ts"></script>
 
 <style lang="scss" scoped>
-.NewCom {
+.New {
   height: auto;
 }
 </style>

@@ -1,14 +1,19 @@
 <template>
   <div class="PageIndex h100">
+    <!-- 头像 -->
     <a-page-header :avatar="{ src: Avatar }">
+      <!-- 名称 -->
       <template #title> YAPI Response 转 Typescript Interface </template>
+      <!-- 代码仓库 -->
       <template #subTitle>
         <a-button type="link" target="_blank" href="http://10.106.11.64/yinchengnuo/yapiresponsetransformtotypescriptinterface">Gitlab</a-button>
       </template>
+      <!-- 技术标签 -->
       <template #tags>
         <a-tag v-for="item in tags" :key="item.value" :color="item.color">{{ item.value }}</a-tag>
       </template>
       <template #extra>
+        <!-- 示例下拉框 -->
         <a-dropdown>
           <a-button type="link">查看示例</a-button>
           <template #overlay>
@@ -18,6 +23,7 @@
             </a-menu>
           </template>
         </a-dropdown>
+        <!-- 如何使用 -->
         <a-tooltip>
           <template #title>如何使用？</template>
           <a-button type="text" target="_blank" href="http://10.106.16.87:50001/pages/1d9c14">
@@ -25,7 +31,9 @@
           </a-button>
         </a-tooltip>
       </template>
+      <!-- 配置区域 -->
       <a-row>
+        <!-- 左侧配置 -->
         <div class="flex1 flex flex_sb">
           <h3>输入YAPI Response（SchemaJson/JSObject）：</h3>
           <a-space>
@@ -41,7 +49,9 @@
             <a-button type="primary" @click="paste">粘贴</a-button>
           </a-space>
         </div>
+        <!-- 分割线 -->
         <a-divider class="h100" type="vertical" />
+        <!-- 右侧配置 -->
         <div class="flex1 flex flex_sb">
           <h3>输出 Typescript Interface：</h3>
           <a-space>
@@ -57,10 +67,14 @@
           </a-space>
         </div>
       </a-row>
+      <!-- 代码展示区 -->
       <template #footer>
         <a-row>
+          <!-- 输入代码展示 -->
           <pre v-html="inputDom" class="editor input flex1" :class="{ value: inputDom }" @click="click" />
+          <!-- 分割线 -->
           <a-divider class="h100" type="vertical" />
+          <!-- 输出代码展示 -->
           <pre v-html="outputDom" class="editor output flex1" :class="{ value: outputDom }" />
         </a-row>
       </template>
@@ -82,7 +96,7 @@ import transform, { Config } from '@/utils/transform'
 message.config({ top: 'calc(50vh - 30px)' })
 
 // 标签数据
-const tags = [
+const tags: Array<{ value: string; color: string }> = [
   { value: 'pnpm', color: 'pink' },
   { value: 'vite', color: 'red' },
   { value: 'vue3', color: 'orange' },
