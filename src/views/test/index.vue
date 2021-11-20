@@ -11,17 +11,15 @@ import Test from '@/components/Test.vue'
 
 <style lang="scss" scoped>
 .NewCom {
-  .self {
+  :deep(.self) {
     color: red;
   }
-  :deep {
-    background: orange;
-    .a {
-      color: pink;
-    }
-    .b {
-      color: blue;
-    }
+  background: orange;
+  .a {
+    color: pink;
+  }
+  .b {
+    color: blue;
   }
 }
 </style>
