@@ -1,11 +1,11 @@
 {
-  "name": "YAPI",
+  "name": "yapiresponsetransformtotypescriptinterface",
   "version": "0.0.0",
   "license": "MIT",
   "main": "index.js",
   "scripts": {
     "dev": "vite --host",
-    "dev:electron": "npm run dev & electron . --dev",
+    "dev:electron": "concurrently \"vite --host\" \"wait-on tcp:3000 && electron . --dev\"",
     "build": "vue-tsc --noEmit && vite build",
     "build:electron": "npm run build && electron-builder",
     "serve": "vite preview --host",
@@ -27,13 +27,13 @@
   "electronDownload": {
     "mirror": "https://npm.taobao.org/mirrors/electron/"
   },
-  "dependencies": {},
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.2.0",
     "@typescript-eslint/parser": "^5.2.0",
     "@vitejs/plugin-vue": "^1.3.0",
     "@vue/compiler-sfc": "^3.0.5",
     "ant-design-vue": "^2.2.8",
+    "concurrently": "^6.4.0",
     "electron": "^16.0.1",
     "electron-builder": "^22.13.1",
     "eslint": "^7.32.0",
@@ -51,6 +51,7 @@
     "vue": "^3.0.5",
     "vue-router": "4",
     "vue-tsc": "^0.2.2",
-    "vuex": "^4.0.2"
+    "vuex": "^4.0.2",
+    "wait-on": "^6.0.0"
   }
 }
