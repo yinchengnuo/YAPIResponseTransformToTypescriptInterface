@@ -1,20 +1,25 @@
 {
   "name": "yapiresponsetransformtotypescriptinterface",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "license": "MIT",
   "main": "index.js",
+  "description": "YAPI Response RAW 转 Typescript Interface 小工具。",
+  "author": "yinchengnuo",
+  "repository": "https://github.com/yinchengnuo/YAPIResponseTransformToTypescriptInterface",
   "scripts": {
     "dev": "vite --host",
-    "dev:electron": "concurrently \"vite --host\" \"wait-on tcp:3000 && electron . --dev\"",
+    "dev:electron": "concurrently \"vite --host\" \"wait-on tcp:3000 && electron .\"",
     "build": "vue-tsc --noEmit && vite build",
-    "build:electron": "npm run build && electron-builder",
+    "prebuild:electron": "npm run build",
+    "build:electron": "electron-builder",
     "serve": "vite preview --host",
     "prepare": "husky install"
   },
   "build": {
     "appId": "YAPI",
+    "productName": "YAPI TS",
     "files": [
-      "dist/**/*",
+      "build/**/*",
       "index.js"
     ],
     "win": {
@@ -34,6 +39,7 @@
     "@vue/compiler-sfc": "^3.0.5",
     "ant-design-vue": "^2.2.8",
     "concurrently": "^6.4.0",
+    "cross-env": "^7.0.3",
     "electron": "^16.0.1",
     "electron-builder": "^22.13.1",
     "eslint": "^7.32.0",

@@ -1249,6 +1249,13 @@ crc@^3.8.0:
   dependencies:
     buffer "^5.1.0"
 
+cross-env@^7.0.3:
+  version "7.0.3"
+  resolved "https://registry.npm.taobao.org/cross-env/download/cross-env-7.0.3.tgz#865264b29677dc015ba8418918965dd232fc54cf"
+  integrity sha1-hlJkspZ33AFbqEGJGJZd0jL8VM8=
+  dependencies:
+    cross-spawn "^7.0.1"
+
 cross-spawn@^7.0.1, cross-spawn@^7.0.2, cross-spawn@^7.0.3:
   version "7.0.3"
   resolved "https://registry.nlark.com/cross-spawn/download/cross-spawn-7.0.3.tgz"
