@@ -4,5 +4,8 @@
   ],
   "src/**/*.{js,ts,vue}": [
     "npx eslint --fix"
+  ],
+  "app/**/*.ts": [
+    "npx eslint --fix"
   ]
 }

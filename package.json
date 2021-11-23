@@ -2,16 +2,22 @@
   "name": "yapiresponsetransformtotypescriptinterface",
   "version": "1.0.0",
   "license": "MIT",
-  "main": "index.js",
+  "main": "build/index.js",
   "description": "YAPI Response RAW 转 Typescript Interface 小工具。",
-  "author": "yinchengnuo",
+  "author": {
+    "name": "yinchengnuo",
+    "email": "yinchengnuo@qq.com"
+  },
   "repository": "https://github.com/yinchengnuo/YAPIResponseTransformToTypescriptInterface",
   "scripts": {
     "dev": "vite --host",
-    "dev:electron": "concurrently \"vite --host\" \"wait-on tcp:3000 && electron .\"",
     "build": "vue-tsc --noEmit && vite build",
-    "prebuild:electron": "npm run build",
-    "build:electron": "electron-builder",
+    "build:test": "vue-tsc --noEmit && vite build --mode test",
+    "dev:electron": "concurrently \"npm run dev\" \"npm run esbuild:dev\"",
+    "build:electron": "tsc app/**/*.ts --noEmit && npm run build && npm run esbuild:build && electron-builder",
+    "build:electron:test": "tsc app/**/*.ts --noEmit && npm run build:test && npm run esbuild:build && electron-builder",
+    "esbuild:dev": "cross-env ELECTRON_ENV=development node ./index.js",
+    "esbuild:build": "cross-env ELECTRON_ENV=production node ./index.js",
     "serve": "vite preview --host",
     "prepare": "husky install"
   },
@@ -19,8 +25,7 @@
     "appId": "YAPI",
     "productName": "YAPI TS",
     "files": [
-      "build/**/*",
-      "index.js"
+      "build/**/*"
     ],
     "win": {
       "icon": "src/assets/my.png"
@@ -42,6 +47,7 @@
     "cross-env": "^7.0.3",
     "electron": "^16.0.1",
     "electron-builder": "^22.13.1",
+    "electron-connect": "^0.6.3",
     "eslint": "^7.32.0",
     "eslint-config-standard": "^16.0.3",
     "eslint-plugin-import": "^2.25.2",

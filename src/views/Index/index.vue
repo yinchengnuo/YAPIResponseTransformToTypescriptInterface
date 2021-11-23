@@ -197,6 +197,8 @@ const copy = (): void => {
     message.info('输出无数据')
   }
 }
+
+console.log(import.meta.env.VITE_ENV)
 </script>
 
 <style lang="scss" scoped>

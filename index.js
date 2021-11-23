@@ -1,20 +1,31 @@
-const { app, BrowserWindow, Menu } = require('electron')
+const esbuild = require('esbuild')
+const electron = require('electron-connect').server.create()
 
-app.whenReady().then(() => {
-  Menu.setApplicationMenu(Menu.buildFromTemplate([]))
+const development = process.env.ELECTRON_ENV === 'development'
 
-  const mainWindow = new BrowserWindow({
-    show: false, // 默认不显示
-    resizable: false, // 不允许调整窗口尺寸
-    // fullscreen: true, // 默认全屏
-    // alwaysOnTop: true, // 窗口置顶
-    useContentSize: true // 使用内容区域宽高作为窗口宽高
+esbuild
+  .build({
+    minify: true, // 压缩代码
+    bundle: true, // 打包模块
+    format: 'cjs', // 输出为 common JS
+    platform: 'node', // 平台 node
+    outdir: './build', // 输出到 build 文件夹
+    external: ['electron'], // 不打包 electron
+    entryPoints: ['app/index.ts'], // 入口文件
+    watch: development
+      ? {
+          onRebuild: (err) => {
+            if (!err) {
+              console.log('\x1B[31m%s\x1B[0m', '主进程代码变更，请适时重启开发环境')
+              // electron.restart()
+            }
+          }
+        }
+      : undefined
   })
-
-  // 页面加载完成后显示
-  mainWindow.once('ready-to-show', mainWindow.show)
-
-  app.isPackaged ? mainWindow.loadFile('build/index.html') : mainWindow.loadURL('http://localhost:3000')
-})
-
-app.on('window-all-closed', app.quit)
+  .then(() => {
+    // 开发环境 打包完成后启动 electron
+    if (development) {
+      electron.start()
+    }
+  })
