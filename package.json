@@ -2,7 +2,7 @@
   "name": "yapiresponsetransformtotypescriptinterface",
   "version": "1.0.0",
   "license": "MIT",
-  "main": "build/index.js",
+  "main": "dist/index.js",
   "description": "YAPI Response RAW 转 Typescript Interface 小工具。",
   "author": {
     "name": "yinchengnuo",
@@ -14,8 +14,8 @@
     "build": "vue-tsc --noEmit && vite build",
     "build:test": "vue-tsc --noEmit && vite build --mode test",
     "dev:electron": "concurrently \"npm run dev\" \"npm run esbuild:dev\"",
-    "build:electron": "tsc app/**/*.ts --noEmit && npm run build && npm run esbuild:build && electron-builder",
-    "build:electron:test": "tsc app/**/*.ts --noEmit && npm run build:test && npm run esbuild:build && electron-builder",
+    "build:electron": "tsc -p app --noEmit && npm run build && npm run esbuild:build && electron-builder -w",
+    "build:electron:test": "tsc -p app --noEmit && npm run build:test && npm run esbuild:build && electron-builder -w",
     "esbuild:dev": "cross-env ELECTRON_ENV=development node ./index.js",
     "esbuild:build": "cross-env ELECTRON_ENV=production node ./index.js",
     "serve": "vite preview --host",
@@ -25,7 +25,16 @@
     "appId": "YAPI",
     "productName": "YAPI TS",
     "files": [
-      "build/**/*"
+      "dist/**/*"
+    ],
+    "directories": {
+      "output": "build"
+    },
+    "publish": [
+      {
+        "provider": "generic",
+        "url": "https://7463-tcb-wvejp0kobnwg4yva44474-1164c4-1302828448.tcb.qcloud.la/electron"
+      }
     ],
     "win": {
       "icon": "src/assets/my.png"
@@ -38,6 +47,7 @@
     "mirror": "https://npm.taobao.org/mirrors/electron/"
   },
   "devDependencies": {
+    "@types/node": "^14.17.34",
     "@typescript-eslint/eslint-plugin": "^5.2.0",
     "@typescript-eslint/parser": "^5.2.0",
     "@vitejs/plugin-vue": "^1.3.0",
@@ -48,6 +58,7 @@
     "electron": "^16.0.1",
     "electron-builder": "^22.13.1",
     "electron-connect": "^0.6.3",
+    "esbuild-node-externals": "^1.4.0",
     "eslint": "^7.32.0",
     "eslint-config-standard": "^16.0.3",
     "eslint-plugin-import": "^2.25.2",
@@ -65,5 +76,8 @@
     "vue-tsc": "^0.2.2",
     "vuex": "^4.0.2",
     "wait-on": "^6.0.0"
+  },
+  "dependencies": {
+    "electron-updater": "^4.6.1"
   }
 }

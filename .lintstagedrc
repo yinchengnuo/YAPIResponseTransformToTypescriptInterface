@@ -1,11 +1,11 @@
 {
   "src/**/*.{js,ts,vue,scss,json,md}": [
-    "npx prettier --write"
+    "prettier --write"
   ],
   "src/**/*.{js,ts,vue}": [
-    "npx eslint --fix"
+    "eslint --fix"
   ],
   "app/**/*.ts": [
-    "npx eslint --fix"
+    "eslint --fix"
   ]
 }

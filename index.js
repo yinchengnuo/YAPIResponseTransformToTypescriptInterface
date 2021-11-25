@@ -1,5 +1,6 @@
 const esbuild = require('esbuild')
 const electron = require('electron-connect').server.create()
+const { nodeExternalsPlugin } = require('esbuild-node-externals')
 
 const development = process.env.ELECTRON_ENV === 'development'
 
@@ -9,9 +10,9 @@ esbuild
     bundle: true, // 打包模块
     format: 'cjs', // 输出为 common JS
     platform: 'node', // 平台 node
-    outdir: './build', // 输出到 build 文件夹
-    external: ['electron'], // 不打包 electron
-    entryPoints: ['app/index.ts'], // 入口文件
+    outdir: './dist', // 输出到 build 文件夹
+    plugins: [nodeExternalsPlugin()], // 不把 node_modules 打进主进程代码里
+    entryPoints: ['app/index.ts', 'app/preload.ts'], // 入口文件
     watch: development
       ? {
           onRebuild: (err) => {

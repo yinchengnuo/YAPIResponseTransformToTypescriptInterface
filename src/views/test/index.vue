@@ -1,13 +1,10 @@
 <template>
   <div class="NewCom">
     <div class="self">1231</div>
-    <Test />
   </div>
 </template>
 
-<script setup lang="ts">
-import Test from '@/components/Test.vue'
-</script>
+<script setup lang="ts"></script>
 
 <style lang="scss" scoped>
 .NewCom {

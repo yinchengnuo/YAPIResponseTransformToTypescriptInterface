@@ -10,7 +10,9 @@
       </template>
       <!-- 技术标签 -->
       <template #tags>
-        <a-tag v-for="item in tags" :key="item.value" :color="item.color">{{ item.value }}</a-tag>
+        <div class="tags">
+          <a-tag v-for="item in tags" :key="item.value" :color="item.color">{{ item.value }}</a-tag>
+        </div>
       </template>
       <template #extra>
         <!-- 示例下拉框 -->
@@ -197,8 +199,6 @@ const copy = (): void => {
     message.info('输出无数据')
   }
 }
-
-console.log(import.meta.env.VITE_ENV)
 </script>
 
 <style lang="scss" scoped>

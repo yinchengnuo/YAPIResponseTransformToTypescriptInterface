@@ -3,6 +3,11 @@
     font-size: 24px;
     vertical-align: middle;
   }
+  .tags {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
   .editor {
     padding: 8px;
     color: #000;
@@ -11,7 +16,7 @@
     position: relative;
     border-radius: 6px;
     box-sizing: border-box;
-    height: calc(100vh - 139px);
+    height: calc(100vh - 140px);
     border: 1px solid #cac9c9;
     &::-webkit-scrollbar {
       width: 10px;
