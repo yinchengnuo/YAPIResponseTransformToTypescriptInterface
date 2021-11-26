@@ -17,16 +17,20 @@ app.whenReady().then(() => {
     }
   })
 
-  window.once('ready-to-show', window.show)
+  window.once('ready-to-show', () => {
+    window.show()
+    // 检查更新
+    updata(window)
+  })
 
   app.isPackaged ? window.loadFile('dist/index.html') : window.loadURL('http://localhost:3000')
 
-  // 检查更新
-  updata(window)
   // 注册快捷键
   shortcut(window)
   // 不同平台的处理
   platform(window)
 })
 
-app.on('window-all-closed', app.quit)
+app.on('window-all-closed', () => {
+  app.quit()
+})

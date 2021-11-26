@@ -1,8 +1,14 @@
 import IPC from './IPC'
 import { BrowserWindow, ipcMain } from 'electron'
-import { autoUpdater, UpdateInfo } from 'electron-updater'
+import { NsisUpdater, UpdateInfo } from 'electron-updater'
 
 export default (window: BrowserWindow): void => {
+  // 实例化 autoUpdater
+  const autoUpdater = new NsisUpdater({
+    provider: 'generic',
+    url: 'https://7463-tcb-wvejp0kobnwg4yva44474-1164c4-1302828448.tcb.qcloud.la/electron'
+  })
+
   // 开始检查更新
   autoUpdater.on('checking-for-update', () => {
     window.webContents.send(IPC.UPDATA_CHECKING, {
@@ -51,4 +57,8 @@ export default (window: BrowserWindow): void => {
   })
 
   autoUpdater.checkForUpdatesAndNotify()
+
+  setInterval(() => {
+    autoUpdater.checkForUpdatesAndNotify()
+  }, 1000 * 60 * 5)
 }

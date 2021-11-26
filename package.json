@@ -30,12 +30,7 @@
     "directories": {
       "output": "build"
     },
-    "publish": [
-      {
-        "provider": "generic",
-        "url": "https://7463-tcb-wvejp0kobnwg4yva44474-1164c4-1302828448.tcb.qcloud.la/electron"
-      }
-    ],
+    
     "win": {
       "icon": "src/assets/my.png"
     },

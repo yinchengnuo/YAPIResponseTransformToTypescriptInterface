@@ -6,13 +6,12 @@ import { BrowserWindow } from 'electron'
  * @return {*}
  */
 export default (window: BrowserWindow): void => {
-  const platform: string = process.platform || ''
   // window 打开最大化
-  if (platform.startsWith('win')) {
+  if (process.platform === 'win32') {
     window.maximize()
   }
   // mac 打开全屏
-  if (platform.startsWith('darwin')) {
+  if (process.platform === 'darwin') {
     window.setFullScreen(true)
   }
 }
