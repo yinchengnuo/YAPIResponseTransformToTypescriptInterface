@@ -13,6 +13,16 @@ export const routes: Array<RouteRecordRaw> = [
     component: () => import('@/views/test/index.vue')
   },
   {
+    path: '/print',
+    name: 'print',
+    component: () => import('@/views/print/index.vue')
+  },
+  {
+    path: '/serialport',
+    name: 'serialport',
+    component: () => import('@/views/serialport/index.vue')
+  },
+  {
     path: '/vue3',
     name: 'vue3',
     component: () => import('@/views/vue3/index.vue')

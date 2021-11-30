@@ -1,8 +1,10 @@
 <template>
-  <div class="Updata flex">
-    <span class="version"> v {{ version }}</span>
-    <a-progress v-if="percent && percent < 100" :percent="percent" />
+  <div class="bar flex">
+    <a-button type="link" @click="$router.push('/serialport')">串口测试</a-button>
+    <span> v {{ version }}</span>
+    <a-button type="link" @click="$router.push('/print')">打印测试</a-button>
   </div>
+  <a-progress v-if="percent" status="active" :percent="percent" />
 </template>
 
 <script setup lang="ts">
@@ -57,20 +59,21 @@ ipcRenderer.on(IPC.UPDATA_DOWNLOADED, () => {
 </script>
 
 <style lang="scss" scoped>
-.Updata {
+.bar {
   left: 0;
   bottom: 0;
   width: 100%;
   height: 20px;
   padding: 0 24px;
   position: fixed;
+  font-weight: bolder;
+  white-space: nowrap;
   box-sizing: border-box;
-  .version {
-    font-weight: bolder;
-    white-space: nowrap;
-  }
-  .ant-progress {
-    margin-left: 24px;
-  }
+}
+.ant-progress {
+  top: 0;
+  left: 24px;
+  position: fixed;
+  width: calc(100vw - 48px);
 }
 </style>

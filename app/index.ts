@@ -11,6 +11,7 @@ app.whenReady().then(() => {
   const window = new BrowserWindow({
     show: false,
     webPreferences: {
+      webviewTag: true, // 允许使用 webview 标签
       nodeIntegration: true, // 在浏览器环境使用 node
       contextIsolation: false, // 取消 node 和 浏览器隔离
       preload: path.join(__dirname, './preload.js') // preload.js
