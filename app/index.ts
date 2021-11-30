@@ -1,6 +1,7 @@
 import path from 'path'
 import { app, BrowserWindow } from 'electron'
 
+import print from './src/print'
 import updata from './src/updata'
 import shortcut from './src/shortcut'
 import platform from './src/platform'
@@ -30,10 +31,8 @@ app.whenReady().then(() => {
   shortcut(window)
   // 不同平台的处理
   platform(window)
-
-  setTimeout(() => {
-    console.log(window.webContents.getPrinters(), 'window.webContents.getPrinters()')
-  }, 2333)
+  // 初始化打印机相关
+  print(window)
 })
 
 app.on('window-all-closed', () => {

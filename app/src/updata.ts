@@ -2,6 +2,11 @@ import IPC from './IPC'
 import { BrowserWindow, ipcMain } from 'electron'
 import { NsisUpdater, UpdateInfo } from 'electron-updater'
 
+/**
+ * @description: 应用检查更新相关逻辑
+ * @param {BrowserWindow} window
+ * @return {*}
+ */
 export default (window: BrowserWindow): void => {
   // 实例化 autoUpdater
   const autoUpdater = new NsisUpdater({

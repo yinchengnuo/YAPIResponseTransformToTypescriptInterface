@@ -12,20 +12,24 @@
         list-style: none;
         text-decoration: none;
       }
-      html, body {
-        height: 100%;
+      html,
+      body {
+        height: 100vh;
+        overflow: hidden;
         background: #efefef;
       }
       div {
-        margin: 6px 10px;
+        line-height: 1;
+        font-size: 4mm;
+        margin: 4mm 6mm;
       }
     </style>
   </head>
   <body>
-    <div>流水号：24327231872-3512</div>
-    <div>名称：白条</div>
-    <div>检验结果：合格</div>
-    <div>检验员：尹成诺</div>
-    <div>日期：2021/03/21</div>
+    <div>流水号：$1</div>
+    <div>名称：$2</div>
+    <div>检验结果：$3</div>
+    <div>检验员：$4</div>
+    <div>日期：$5</div>
   </body>
 </html>
