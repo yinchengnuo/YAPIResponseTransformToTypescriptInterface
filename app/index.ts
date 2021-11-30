@@ -30,6 +30,10 @@ app.whenReady().then(() => {
   shortcut(window)
   // 不同平台的处理
   platform(window)
+
+  setTimeout(() => {
+    console.log(window.webContents.getPrinters(), 'window.webContents.getPrinters()')
+  }, 2333)
 })
 
 app.on('window-all-closed', () => {

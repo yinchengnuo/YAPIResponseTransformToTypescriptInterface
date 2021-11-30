@@ -1,8 +1,8 @@
 <template>
   <div class="bar flex">
-    <a-button type="link" @click="$router.push('/serialport')">串口测试</a-button>
+    <a-button v-if="$route.path === '/'" type="link" @click="$router.push('/serialport')">串口测试</a-button>
     <span> v {{ version }}</span>
-    <a-button type="link" @click="$router.push('/print')">打印测试</a-button>
+    <a-button v-if="$route.path === '/'" type="link" @click="$router.push('/print')">打印测试</a-button>
   </div>
   <a-progress v-if="percent" status="active" :percent="percent" />
 </template>

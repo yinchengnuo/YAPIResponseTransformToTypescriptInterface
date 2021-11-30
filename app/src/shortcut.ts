@@ -15,10 +15,4 @@ export default (window: BrowserWindow): void => {
   globalShortcut.register('ESC', () => {
     window.webContents.goBack()
   })
-
-  // 打印
-  globalShortcut.register('Control+P', () => {
-    console.log(window.webContents.getPrinters())
-    console.log(2333)
-  })
 }
