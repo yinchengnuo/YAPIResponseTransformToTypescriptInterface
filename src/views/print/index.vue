@@ -15,13 +15,7 @@
     <br />
     <h1>打印机内容</h1>
     <br />
-    <webview
-      :src="src"
-      ref="webview"
-      nodeintegration
-      webpreferences="allowRunningInsecureContent, webSecurity=true"
-      :style="{ width: pageSize.with + 'mm', height: pageSize.height + 'mm' }"
-    ></webview>
+    <webview :src="src" ref="webview" nodeintegration :style="{ width: pageSize.with + 'mm', height: pageSize.height + 'mm' }"></webview>
     <br />
     <a-button type="primary" @click="print">打印</a-button>
   </div>
