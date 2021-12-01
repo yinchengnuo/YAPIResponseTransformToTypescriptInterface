@@ -18,18 +18,38 @@
         overflow: hidden;
         background: #efefef;
       }
+      body {
+        padding: 3mm 4mm 0;
+        box-sizing: border-box;
+      }
       div {
-        line-height: 1;
+        font-size: 3mm;
+        line-height: 1.4;
+      }
+      .title {
+        font-size: 5mm;
+        text-align: center;
+        letter-spacing: 4mm;
+      }
+      .name {
         font-size: 4mm;
-        margin: 4mm 6mm;
+      }
+      .weight {
+        font-size: 5.5mm;
       }
     </style>
   </head>
   <body>
-    <div>流水号：$1</div>
-    <div>名称：$2</div>
-    <div>检验结果：$3</div>
-    <div>检验员：$4</div>
-    <div>日期：$5</div>
+    <div class="title">合格证</div>
+    <div class="name">产品名称：$1</div>
+    <div class="weight">净&nbsp;&nbsp;含&nbsp;&nbsp;量：$2</div>
+    <div>检&nbsp;验&nbsp;员：$3</div>
+    <div>储存条件：$4</div>
+    <div>保&nbsp;质&nbsp;期：$5</div>
+    <div>生产日期：$6</div>
+    <div>执行标准：$7</div>
+    <div>公司名称：$8</div>
+    <div>地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;址：$9</div>
+    <div>电&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;话：$10</div>
   </body>
 </html>

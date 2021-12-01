@@ -6,8 +6,8 @@ import { BrowserWindow, globalShortcut } from 'electron'
  * @return {*}
  */
 export default (window: BrowserWindow): void => {
-  // F12 打开控制台
-  globalShortcut.register('F12', () => {
+  // Control+R 打开控制台
+  globalShortcut.register('Control+R', () => {
     window.webContents.toggleDevTools()
   })
 

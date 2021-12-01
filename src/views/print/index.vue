@@ -23,6 +23,7 @@
 
 <script setup lang="ts">
 import IPC from '@/../app/src/IPC'
+import { message } from 'ant-design-vue'
 import { ref, Ref, computed } from 'vue'
 import raw from './print.html?raw'
 
@@ -40,8 +41,8 @@ interface PrinterInfo {
   };
 }
 const pageSize = {
-  with: 100,
-  height: 44
+  with: 80,
+  height: 60
 }
 
 const webview = ref()
@@ -49,9 +50,24 @@ const list: Ref<Array<PrinterInfo>> = ref([])
 
 const src = computed(() =>
   URL.createObjectURL(
-    new Blob([raw.replace('$1', '20211130205413298123').replace('$2', '白条').replace('$3', '合格').replace('$4', '尹成诺').replace('$5', new Date().toLocaleDateString())], {
-      type: 'text/html'
-    })
+    new Blob(
+      [
+        raw
+          .replace('$1', '冻猪精品黄喉（非零售）')
+          .replace('$2', '10kg')
+          .replace('$3', '02')
+          .replace('$4', '0 ℃ 以下冷藏')
+          .replace('$5', '45天')
+          .replace('$6', '2021年12月01')
+          .replace('$7', 'GB 2707')
+          .replace('$8', '牧原肉食品有限公司')
+          .replace('$9', '河南省内乡县灌张镇前湾村312国道南')
+          .replace('$10', '0377-6279999')
+      ],
+      {
+        type: 'text/html'
+      }
+    )
   )
 )
 
@@ -61,18 +77,34 @@ ipcRenderer.on(IPC.GOT_PRINTER_LIST, (_: Event, config: Array<PrinterInfo>) => {
 })
 
 const print = () => {
-  webview.value.print({
-    // deviceName: 'Zebra_Technologies_ZTC_ZD420_300dpi_ZPL',
-    // deviceName: 'TSC_TTP_342_Pro',÷
-    margins: {
-      marginType: 'none'
-    },
-    pageRanges: [{ from: 0, to: 0 }],
-    pageSize: {
-      width: pageSize.with * 1000,
-      height: pageSize.height * 1000
+  const printList = list.value.filter((e) => e.status === 0)
+  if (printList.length) {
+    if (printList.length === 1) {
+      webview.value
+        .print({
+          silent: true,
+          deviceName: 'TSC TTP-342 Pro',
+          margins: {
+            marginType: 'none'
+          },
+          pageRanges: [{ from: 0, to: 0 }],
+          pageSize: {
+            width: pageSize.with * 1000,
+            height: pageSize.height * 1000
+          }
+        })
+        .then(() => {
+          message.success('打印成功')
+        })
+        .catch((e: Error) => {
+          message.error(e.message)
+        })
+    } else {
+      message.info('当前设备连接多台打印机，无法打印')
     }
-  })
+  } else {
+    message.error('请连接打印机')
+  }
 }
 </script>
 
