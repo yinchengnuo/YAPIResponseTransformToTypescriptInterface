@@ -2,12 +2,14 @@
   <a-config-provider :locale="locale">
     <router-view />
   </a-config-provider>
-  <Updata />
+  <Updata v-if="electron" />
 </template>
 
 <script setup lang="ts">
-import locale from 'ant-design-vue/es/locale/zh_CN'
+import { ref, Ref } from 'vue'
 import Updata from '@/components/Updata.vue'
+import locale from 'ant-design-vue/es/locale/zh_CN'
+const electron: Ref<boolean> = ref(Boolean(window.require))
 </script>
 
 <style>
