@@ -13,7 +13,7 @@
     "dev": "vite --host",
     "build": "vue-tsc --noEmit && vite build",
     "build:test": "vue-tsc --noEmit && vite build --mode test",
-    "dev:electron": "concurrently \"npm run dev\" \"npm run esbuild:dev\"",
+    "dev:electron": "concurrently \"npm run dev\" \"wait-on tcp:3000 && npm run esbuild:dev\"",
     "build:electron": "tsc -p app --noEmit && npm run build && npm run esbuild:build && electron-builder -w",
     "build:electron:test": "tsc -p app --noEmit && npm run build:test && npm run esbuild:build && electron-builder -w",
     "esbuild:dev": "cross-env ELECTRON_ENV=development node ./index.js",
