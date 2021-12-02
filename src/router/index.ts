@@ -18,9 +18,9 @@ export const routes: Array<RouteRecordRaw> = [
     component: () => import('@/views/print/index.vue')
   },
   {
-    path: '/serialport',
-    name: 'serialport',
-    component: () => import('@/views/serialport/index.vue')
+    path: '/port',
+    name: 'port',
+    component: () => import('@/views/port/index.vue')
   },
   {
     path: '/vue3',

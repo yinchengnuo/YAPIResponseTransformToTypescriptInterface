@@ -1,7 +1,7 @@
 <template>
   <div class="print flexc">
     <h1>Electron 静默打印</h1>
-    <hr class="w100" />
+    <a-divider />
     <h1>打印机列表</h1>
     <a-table class="w100" rowKey="id" :data-source="list" bordered :pagination="false">
       <a-table-column key="name" title="name" data-index="name" />
@@ -10,13 +10,11 @@
       <a-table-column key="status" title="status" data-index="status" />
       <a-table-column key="isDefault" title="isDefault" data-index="isDefault" />
     </a-table>
-    <br />
-    <hr class="w100" />
-    <br />
-    <h1>打印机内容</h1>
-    <br />
+    <a-divider />
+    <h1>打印内容</h1>
+    <a-divider />
     <webview :src="src" ref="webview" nodeintegration :style="{ width: pageSize.with + 'mm', height: pageSize.height + 'mm' }" />
-    <br />
+    <a-divider />
     <a-button type="primary" @click="print">打印</a-button>
   </div>
 </template>
@@ -105,8 +103,8 @@ const print = () => {
 
 <style lang="scss" scoped>
 .print {
-  padding-bottom: 30px;
   h1 {
+    margin-top: 24px;
     text-align: center;
   }
 }

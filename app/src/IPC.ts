@@ -1,7 +1,7 @@
 /*
  * @Author: 尹成诺
  * @Date: 2021-11-24 19:57:29
- * @LastEditTime: 2021-11-30 14:45:13
+ * @LastEditTime: 2021-12-02 23:12:43
  * @LastEditors: Please set LastEditors
  * @Description: IPC 通信 channel 表
  * @FilePath: /yapiresponsetransformtotypescriptinterface/app/src/IPC.ts
@@ -23,5 +23,15 @@ export default {
   // 立即更新
   UPDATA_QUITANDINSTALL: 'UPDATA_QUITANDINSTALL',
   // 获取打印机列表
-  GOT_PRINTER_LIST: 'GOT_PRINTER_LIST'
+  GOT_PRINTER_LIST: 'GOT_PRINTER_LIST',
+  // 获取串口列表
+  GET_PORT_LIST: 'GET_PORT_LIST',
+  // 打开串口
+  OPEN_PORT: 'OPEN_PORT',
+  // 关闭串口
+  CLOSE_PORT: 'CLOSE_PORT',
+  // 向串口发送数据
+  SEND_DATA_TO_PORT: 'SEND_DATA_TO_PORT',
+  // 从串口接受数据
+  ACCEPT_DATA_FROM_PORT: 'ACCEPT_DATA_FROM_PORT'
 }

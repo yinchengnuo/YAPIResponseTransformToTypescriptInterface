@@ -1,11 +1,13 @@
 import path from 'path'
 import { app, BrowserWindow } from 'electron'
 
+import port from './src/port'
 import print from './src/print'
 import updata from './src/updata'
 import shortcut from './src/shortcut'
 import platform from './src/platform'
 
+// app 初始化
 import './src/init'
 
 app.whenReady().then(() => {
@@ -26,13 +28,16 @@ app.whenReady().then(() => {
   })
 
   app.isPackaged ? window.loadFile('dist/index.html') : window.loadURL('http://localhost:3000')
-
+  if (process.arch.startsWith('x')) {
+    // 初始化串口
+    port(window)
+  }
+  // 初始化打印机
+  print(window)
   // 注册快捷键
   shortcut(window)
   // 不同平台的处理
   platform(window)
-  // 初始化打印机相关
-  print(window)
 })
 
 app.on('window-all-closed', () => {
