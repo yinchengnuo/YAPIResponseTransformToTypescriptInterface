@@ -15,7 +15,7 @@
     <br />
     <h1>打印机内容</h1>
     <br />
-    <webview :src="src" ref="webview" nodeintegration :style="{ width: pageSize.with + 'mm', height: pageSize.height + 'mm' }"></webview>
+    <webview :src="src" ref="webview" nodeintegration :style="{ width: pageSize.with + 'mm', height: pageSize.height + 'mm' }" />
     <br />
     <a-button type="primary" @click="print">打印</a-button>
   </div>
@@ -77,31 +77,26 @@ ipcRenderer.on(IPC.GOT_PRINTER_LIST, (_: Event, config: Array<PrinterInfo>) => {
 })
 
 const print = () => {
-  const printList = list.value.filter((e) => e.status === 0)
-  if (printList.length) {
-    if (printList.length === 1) {
-      webview.value
-        .print({
-          silent: true,
-          deviceName: 'TSC TTP-342 Pro',
-          margins: {
-            marginType: 'none'
-          },
-          pageRanges: [{ from: 0, to: 0 }],
-          pageSize: {
-            width: pageSize.with * 1000,
-            height: pageSize.height * 1000
-          }
-        })
-        .then(() => {
-          message.success('打印成功')
-        })
-        .catch((e: Error) => {
-          message.error(e.message)
-        })
-    } else {
-      message.info('当前设备连接多台打印机，无法打印')
-    }
+  if (list.value.length) {
+    webview.value
+      .print({
+        silent: true,
+        deviceName: 'Zebra_Technologies_ZTC_ZD420_300dpi_ZPL',
+        margins: {
+          marginType: 'none'
+        },
+        pageRanges: [{ from: 0, to: 0 }],
+        pageSize: {
+          width: pageSize.with * 1000,
+          height: pageSize.height * 1000
+        }
+      })
+      .then(() => {
+        message.success('打印成功')
+      })
+      .catch((e: Error) => {
+        message.error(e.message)
+      })
   } else {
     message.error('请连接打印机')
   }

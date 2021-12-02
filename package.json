@@ -11,8 +11,8 @@
   "repository": "https://github.com/yinchengnuo/YAPIResponseTransformToTypescriptInterface",
   "scripts": {
     "dev": "vite --host",
-    "build": "vue-tsc --noEmit && vite build",
-    "build:test": "vue-tsc --noEmit && vite build --mode test",
+    "build": "vite build",
+    "build:test": "vite build --mode test",
     "dev:electron": "concurrently \"npm run dev\" \"wait-on tcp:3000 && npm run esbuild:dev\"",
     "build:electron": "tsc -p app --noEmit && npm run build && npm run esbuild:build && electron-builder -w",
     "build:electron:test": "tsc -p app --noEmit && npm run build:test && npm run esbuild:build && electron-builder -w",
