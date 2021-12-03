@@ -19,7 +19,7 @@
     "esbuild:dev": "cross-env ELECTRON_ENV=development node ./index.js",
     "esbuild:build": "cross-env ELECTRON_ENV=production node ./index.js",
     "serve": "vite preview --host",
-    "prepare": "husky install && electron-rebuild"
+    "prepare": "husky install"
   },
   "npmRebuild": false,
   "buildDependenciesFromSource": true,

@@ -16,25 +16,21 @@ export default (window: BrowserWindow): void => {
         if (error) {
           reject(new Error(`串口列表获取失败：${error.message}`))
         } else {
-          if (ports.length) {
-            resolve(ports)
-          } else {
-            reject(new Error('串口列表获取成功但数量为0'))
-          }
+          resolve(ports)
         }
       })
     })
   })
   // 打开串口
-  ipcMain.handle(IPC.OPEN_PORT, (event, arg) => {
+  ipcMain.handle(IPC.OPEN_PORT, (event, config) => {
     return new Promise((resolve, reject) => {
       port = new Port(
-        arg[0],
+        'COM1',
         {
-          baudRate: Number(arg[1]),
-          dataBits: Number(arg[2]) as 8 | 7 | 6 | 5 | undefined,
-          parity: arg[3],
-          stopBits: Number(arg[4]) as 1 | 2 | undefined
+          baudRate: 9600,
+          dataBits: 8,
+          parity: 'none',
+          stopBits: 1
         },
         (error) => {
           if (error) {

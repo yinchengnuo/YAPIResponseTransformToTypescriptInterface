@@ -12,8 +12,8 @@ import './src/init'
 
 app.whenReady().then(() => {
   const window = new BrowserWindow({
-    show: false,
-    webPreferences: {
+    show: false, // 默认隐藏渲染进程，防止打开后闪白屏
+    webPreferences: { // 渲染进程页面配置
       webviewTag: true, // 允许使用 webview 标签
       nodeIntegration: true, // 在浏览器环境使用 node
       contextIsolation: false, // 取消 node 和 浏览器隔离
@@ -21,25 +21,34 @@ app.whenReady().then(() => {
     }
   })
 
+  // 渲染进程渲染完成
   window.once('ready-to-show', () => {
+    // 显示渲染进程
     window.show()
     // 检查更新
     updata(window)
   })
 
+  // 根据 app.isPackaged 判断应用是否打包
   app.isPackaged ? window.loadFile('dist/index.html') : window.loadURL('http://localhost:3000')
+
+  // windows 系统初始化串口
   if (process.arch.startsWith('x')) {
     // 初始化串口
     port(window)
   }
+
   // 初始化打印机
   print(window)
+
   // 注册快捷键
   shortcut(window)
+
   // 不同平台的处理
   platform(window)
 })
 
+// 全部渲染进程关闭退出应用
 app.on('window-all-closed', () => {
   app.quit()
 })

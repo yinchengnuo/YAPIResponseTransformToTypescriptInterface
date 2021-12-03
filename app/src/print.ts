@@ -1,5 +1,5 @@
 import IPC from './IPC'
-import { BrowserWindow } from 'electron'
+import { BrowserWindow, ipcMain } from 'electron'
 
 /**
  * @description: 初始化打印机相关
@@ -7,8 +7,8 @@ import { BrowserWindow } from 'electron'
  * @return {*}
  */
 export default (window: BrowserWindow): void => {
-  // 实时更新打印机列表
-  setInterval(() => {
-    window.webContents.send(IPC.GOT_PRINTER_LIST, window.webContents.getPrinters())
-  }, 1000)
+  // 获取打印机列表
+  ipcMain.handle(IPC.GET_PRINTER_LIST, () => {
+    return window.webContents.getPrinters()
+  })
 }

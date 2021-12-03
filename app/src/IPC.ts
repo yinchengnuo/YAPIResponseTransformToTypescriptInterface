@@ -23,7 +23,7 @@ export default {
   // 立即更新
   UPDATA_QUITANDINSTALL: 'UPDATA_QUITANDINSTALL',
   // 获取打印机列表
-  GOT_PRINTER_LIST: 'GOT_PRINTER_LIST',
+  GET_PRINTER_LIST: 'GET_PRINTER_LIST',
   // 获取串口列表
   GET_PORT_LIST: 'GET_PORT_LIST',
   // 打开串口

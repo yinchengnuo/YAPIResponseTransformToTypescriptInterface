@@ -8,12 +8,11 @@
 </template>
 
 <script setup lang="ts">
+import { version } from '@/../package.json'
 import { ref } from 'vue'
 import IPC from '@/../app/src/IPC'
 import { notification, Modal } from 'ant-design-vue'
 const { ipcRenderer } = require('electron')
-
-const version = window.version
 const percent = ref(0)
 
 interface NotificationConfig {

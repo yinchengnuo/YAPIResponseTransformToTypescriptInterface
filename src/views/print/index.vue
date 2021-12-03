@@ -22,7 +22,7 @@
 <script setup lang="ts">
 import IPC from '@/../app/src/IPC'
 import { message } from 'ant-design-vue'
-import { ref, Ref, computed } from 'vue'
+import { ref, Ref, computed, onMounted, onUnmounted } from 'vue'
 import raw from './print.html?raw'
 
 const { ipcRenderer } = require('electron')
@@ -69,9 +69,24 @@ const src = computed(() =>
   )
 )
 
-// 实时获取打印机列表
-ipcRenderer.on(IPC.GOT_PRINTER_LIST, (_: Event, config: Array<PrinterInfo>) => {
-  list.value = config.map((e: PrinterInfo) => ({ ...e, id: Math.random().toString(), isDefault: e.isDefault ? '是' : '否' }))
+// 获取打印机列表
+const getPrintList = () => {
+  ipcRenderer.invoke(IPC.GET_PRINTER_LIST).then((config: Array<PrinterInfo>) => {
+    list.value = config.map((e: PrinterInfo) => ({ ...e, id: Math.random().toString(), isDefault: e.isDefault ? '是' : '否' }))
+  })
+}
+
+// 页面挂载完毕
+onMounted(() => {
+  // 获取打印机列表
+  getPrintList()
+  // 实时获取打印机列表
+  const timer = setInterval(getPrintList, 1000)
+  // 页面关闭
+  onUnmounted(() => {
+    // 清除定时器
+    clearInterval(timer)
+  })
 })
 
 const print = () => {
@@ -104,8 +119,10 @@ const print = () => {
 <style lang="scss" scoped>
 .print {
   h1 {
-    margin-top: 24px;
     text-align: center;
+  }
+  .ant-divider {
+    margin: 8px 0;
   }
 }
 </style>
