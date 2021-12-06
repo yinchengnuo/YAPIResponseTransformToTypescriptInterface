@@ -1,8 +1,8 @@
 <template>
   <div class="port flexc">
-    <h1>Electron 串口通信</h1>
+    <h2>Electron 串口通信</h2>
     <a-divider />
-    <h1>串口列表</h1>
+    <h3>串口列表</h3>
     <a-table class="w100" rowKey="pnpId" :data-source="list" bordered :pagination="false">
       <a-table-column key="path" title="path" data-index="path" />
       <a-table-column key="pnpId" title="pnpId" data-index="pnpId" />
@@ -13,7 +13,7 @@
       <a-table-column key="manufacturer" title="manufacturer" data-index="manufacturer" />
     </a-table>
     <a-divider />
-    <h1>串口信息</h1>
+    <h3>串口信息</h3>
     <a-divider />
     <a-form ref="refPortInfo" layout="inline" :model="dataPortInfo">
       <a-form-item has-feedback label="串口" name="name" :rules="[{ required: true, trigger: ['change', 'blur'], message: '串口名不能为空' }]">
@@ -39,18 +39,18 @@
       </a-form-item>
     </a-form>
     <a-divider />
-    <h1>串口操作</h1>
+    <h3>串口操作</h3>
     <a-divider />
     <div class="flex">
       <a-button type="primary" @click="openPort">打开串口</a-button>
       <a-button type="primary" @click="closePort">关闭串口</a-button>
     </div>
     <a-divider />
-    <h1>蜂鸣器测试（发送数据至8051）</h1>
+    <h3>蜂鸣器测试（发送数据至8051）</h3>
     <a-divider />
     <a-button type="primary" @mousedown="ringBuzzer('1')" @mouseup="ringBuzzer('0')">蜂鸣器</a-button>
     <a-divider />
-    <h1>按键测试（从8051接受数据）</h1>
+    <h3>按键测试（从8051接受数据）</h3>
     <a-divider />
     <div class="flex">
       <a-button v-for="(status, index) in keyStatus" :key="index" :type="status ? 'primary' : ''" :danger="status">{{ String("\u200b") }}</a-button>
@@ -68,7 +68,7 @@ const { ipcRenderer } = require('electron')
 
 const refPortInfo = ref()
 const list: Ref<Array<PortInfo>> = ref([])
-const keyStatus: Ref<Array<boolean>> = ref([false, false, true, true])
+const keyStatus: Ref<Array<boolean>> = ref([false, false, false, false])
 
 // 要打开的串口信息
 const dataPortInfo = reactive({
@@ -145,9 +145,6 @@ const ringBuzzer = (action: string) => {
 
 <style lang="scss" scoped>
 .port {
-  h1 {
-    text-align: center;
-  }
   .ant-divider {
     margin: 8px 0;
   }

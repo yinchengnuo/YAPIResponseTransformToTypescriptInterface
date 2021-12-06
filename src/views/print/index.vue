@@ -2,7 +2,7 @@
   <div class="print flexc">
     <h1>Electron 静默打印</h1>
     <a-divider />
-    <h1>打印机列表</h1>
+    <h3>打印机列表</h3>
     <a-table class="w100" rowKey="id" :data-source="list" bordered :pagination="false">
       <a-table-column key="name" title="name" data-index="name" />
       <a-table-column key="displayName" title="displayName" data-index="displayName" />
@@ -11,7 +11,7 @@
       <a-table-column key="isDefault" title="isDefault" data-index="isDefault" />
     </a-table>
     <a-divider />
-    <h1>打印内容</h1>
+    <h3>打印内容</h3>
     <a-divider />
     <webview :src="src" ref="webview" nodeintegration :style="{ width: pageSize.with + 'mm', height: pageSize.height + 'mm' }" />
     <a-divider />
@@ -118,9 +118,6 @@ const print = () => {
 
 <style lang="scss" scoped>
 .print {
-  h1 {
-    text-align: center;
-  }
   .ant-divider {
     margin: 8px 0;
   }
