@@ -1,7 +1,6 @@
 import path from 'path'
 import { app, BrowserWindow } from 'electron'
 
-import port from './src/port'
 import print from './src/print'
 import updata from './src/updata'
 import shortcut from './src/shortcut'
@@ -32,10 +31,12 @@ app.whenReady().then(() => {
   // 根据 app.isPackaged 判断应用是否打包
   app.isPackaged ? window.loadFile('dist/index.html') : window.loadURL('http://localhost:3000')
 
-  // windows 系统初始化串口
+  // 仅仅 x86 架构芯片支持
   if (process.arch.startsWith('x')) {
     // 初始化串口
-    port(window)
+    import('./src/port').then(module => {
+      module.default(window)
+    })
   }
 
   // 初始化打印机
