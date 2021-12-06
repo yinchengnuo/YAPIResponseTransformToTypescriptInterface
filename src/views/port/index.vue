@@ -42,8 +42,8 @@
     <h3>串口操作</h3>
     <a-divider />
     <div class="flex">
-      <a-button type="primary" @click="openPort">打开串口</a-button>
-      <a-button type="primary" @click="closePort">关闭串口</a-button>
+      <a-button type="primary" :disabled="isPortOpened" @click="openPort">打开串口</a-button>
+      <a-button type="primary" :disabled="!isPortOpened" @click="closePort">关闭串口</a-button>
     </div>
     <a-divider />
     <h3>蜂鸣器测试（发送数据至8051）</h3>
@@ -68,6 +68,7 @@ const { ipcRenderer } = require('electron')
 
 const refPortInfo = ref()
 const list: Ref<Array<PortInfo>> = ref([])
+const isPortOpened: Ref<boolean> = ref(false)
 const keyStatus: Ref<Array<boolean>> = ref([false, false, false, false])
 
 // 要打开的串口信息
@@ -117,6 +118,7 @@ const openPort = () => {
           .invoke(IPC.OPEN_PORT, dataPortInfo.name, { ...dataPortInfo })
           .then(() => {
             message.success('操作成功')
+            isPortOpened.value = true
           })
           .catch((e: Error) => message.error(e.message))
       })
@@ -130,6 +132,7 @@ const closePort = () => {
     .invoke(IPC.CLOSE_PORT)
     .then(() => {
       message.success('操作成功')
+      isPortOpened.value = false
     })
     .catch((e: Error) => message.error(e.message))
 }
@@ -148,7 +151,6 @@ const ringBuzzer = (action: string) => {
   .ant-divider {
     margin: 8px 0;
   }
-
   .ant-btn {
     margin: 0 6px;
   }
