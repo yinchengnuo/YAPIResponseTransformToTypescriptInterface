@@ -48,13 +48,13 @@
     <a-divider />
     <h3>蜂鸣器测试（发送数据至8051）</h3>
     <a-divider />
-    <a-button type="primary" @mousedown="ringBuzzer('1')" @mouseup="ringBuzzer('0')">蜂鸣器</a-button>
+    <a-button type="primary" @click="ringBuzzer">蜂鸣器</a-button>
     <a-divider />
-    <h3>按键测试（从8051接受数据）</h3>
+    <!-- <h3>按键测试（从8051接受数据）</h3>
     <a-divider />
     <div class="flex">
       <a-button v-for="(status, index) in keyStatus" :key="index" :type="status ? 'primary' : ''" :danger="status">{{ String("\u200b") }}</a-button>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -138,9 +138,9 @@ const closePort = () => {
 }
 
 // 打开/关闭蜂鸣器
-const ringBuzzer = (action: string) => {
+const ringBuzzer = () => {
   ipcRenderer
-    .invoke(IPC.SEND_DATA_TO_PORT, action)
+    .invoke(IPC.SEND_DATA_TO_PORT, 'action')
     .then(console.log)
     .catch((e: Error) => message.error(e.message))
 }
