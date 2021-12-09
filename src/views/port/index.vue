@@ -55,6 +55,9 @@
     <div class="flex">
       <a-button v-for="(status, index) in keyStatus" :key="index" :type="status ? 'primary' : ''" :danger="status">{{ String("\u200b") }}</a-button>
     </div>
+    <a-divider />
+    <a-button @click="set">SET</a-button>
+    <a-button @click="get">GET</a-button>
   </div>
 </template>
 
@@ -143,6 +146,17 @@ const ringBuzzer = (action: string) => {
     .invoke(IPC.SEND_DATA_TO_PORT, action)
     .then(console.log)
     .catch((e: Error) => message.error(e.message))
+}
+
+// 设置 localStorage
+const set = () => {
+  localStorage.setItem('set', 'set')
+  message.success('SET')
+}
+
+// 获取 localStorage
+const get = () => {
+  message.success('GET' + ': set: ' + localStorage.getItem('set'))
 }
 </script>
 
