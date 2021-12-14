@@ -8,18 +8,67 @@
 </template>
 
 <script setup lang="ts">
-import { version } from '@/../package.json'
 import { ref } from 'vue'
 import IPC from '@/../app/src/IPC'
+import { version } from '@/../package.json'
 import { notification, Modal } from 'ant-design-vue'
+import { NsisUpdater, UpdateInfo } from 'electron-updater'
 const { ipcRenderer } = require('electron')
-const percent = ref(0)
+const percent = ref('0')
 
 interface NotificationConfig {
   message: string;
   percent: string;
   description: string;
 }
+
+// 实例化 autoUpdater
+const autoUpdater = new NsisUpdater({
+  provider: 'generic',
+  url: 'https://7463-tcb-wvejp0kobnwg4yva44474-1164c4-1302828448.tcb.qcloud.la/electron'
+})
+
+// 开始检查更新
+autoUpdater.on('checking-for-update', () => {
+  notification.open({
+    message: '开始检查更新'
+  })
+})
+
+// 检查更新出错
+autoUpdater.on('error', () => {
+  notification.open({
+    message: '检查更新出错'
+  })
+})
+
+// 检查到新版本
+autoUpdater.on('update-available', (info: UpdateInfo) => {
+  notification.open({
+    message: `检查到新版本 v ${info.version}，开始下载`
+  })
+})
+
+// 已经是新版本
+autoUpdater.on('update-not-available', (info: UpdateInfo) => {
+  notification.open({
+    message: `当前版本已经是最新 v ${info.version}`
+  })
+})
+
+// 更新下载中
+autoUpdater.on('download-progress', (info: { percent: string }) => {
+  percent.value = Number(info.percent).toFixed(0)
+})
+
+// 更新下载完毕
+autoUpdater.on('update-downloaded', () => {
+  notification.open({
+    message: '新版本下载完毕'
+  })
+})
+
+autoUpdater.checkForUpdatesAndNotify()
 
 // 开始检查更新
 ipcRenderer.on(IPC.UPDATA_CHECKING, (_: Event, config: NotificationConfig) => {
@@ -43,7 +92,7 @@ ipcRenderer.on(IPC.UPDATA_NOT_AVAILABLE, (_: Event, config: NotificationConfig) 
 
 // 更新下载中
 ipcRenderer.on(IPC.UPDATA_DOWNLOAD_PROGRESS, (_: Event, config: NotificationConfig) => {
-  percent.value = Number(config.percent)
+  percent.value = Number(config.percent).toFixed(0)
 })
 
 // 更新下载完毕
@@ -51,7 +100,8 @@ ipcRenderer.on(IPC.UPDATA_DOWNLOADED, () => {
   Modal.confirm({
     title: () => '新版本已经准备就绪，是否现在更新',
     onOk () {
-      ipcRenderer.invoke(IPC.UPDATA_QUITANDINSTALL)
+      // ipcRenderer.invoke(IPC.UPDATA_QUITANDINSTALL)
+      autoUpdater.quitAndInstall()
     }
   })
 })

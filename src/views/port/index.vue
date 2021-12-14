@@ -49,12 +49,6 @@
     <h3>蜂鸣器测试（发送数据至8051）</h3>
     <a-divider />
     <a-button type="primary" @click="ringBuzzer">蜂鸣器</a-button>
-    <a-divider />
-    <!-- <h3>按键测试（从8051接受数据）</h3>
-    <a-divider />
-    <div class="flex">
-      <a-button v-for="(status, index) in keyStatus" :key="index" :type="status ? 'primary' : ''" :danger="status">{{ String("\u200b") }}</a-button>
-    </div> -->
   </div>
 </template>
 

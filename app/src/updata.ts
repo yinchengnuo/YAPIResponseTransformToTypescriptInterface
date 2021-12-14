@@ -61,11 +61,11 @@ export default (window: BrowserWindow): void => {
     autoUpdater.quitAndInstall()
   })
 
-  // 检查更新
-  autoUpdater.checkForUpdatesAndNotify()
+  // // 检查更新
+  // autoUpdater.checkForUpdatesAndNotify()
 
-  // 5分钟检查更新一次
-  setInterval(() => {
-    autoUpdater.checkForUpdatesAndNotify()
-  }, 1000 * 60 * 5)
+  // // 5分钟检查更新一次
+  // setInterval(() => {
+  //   autoUpdater.checkForUpdatesAndNotify()
+  // }, 1000 * 60 * 5)
 }
