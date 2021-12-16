@@ -22,10 +22,10 @@ export default (window: BrowserWindow): void => {
   })
 
   // 检查更新出错
-  autoUpdater.on('error', () => {
+  autoUpdater.on('error', (error: UpdateInfo) => {
     window.webContents.send(IPC.UPDATA_ERROR, {
       message: '检查更新出错'
-    })
+    }, error)
   })
 
   // 检查到新版本
@@ -61,11 +61,11 @@ export default (window: BrowserWindow): void => {
     autoUpdater.quitAndInstall()
   })
 
-  // // 检查更新
-  // autoUpdater.checkForUpdatesAndNotify()
+  // 检查更新
+  autoUpdater.checkForUpdatesAndNotify()
 
-  // // 5分钟检查更新一次
-  // setInterval(() => {
-  //   autoUpdater.checkForUpdatesAndNotify()
-  // }, 1000 * 60 * 5)
+  // 5分钟检查更新一次
+  setInterval(() => {
+    autoUpdater.checkForUpdatesAndNotify()
+  }, 1000 * 60 * 5)
 }
