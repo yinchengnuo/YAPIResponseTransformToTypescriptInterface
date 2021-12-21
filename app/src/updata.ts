@@ -23,9 +23,13 @@ export default (window: BrowserWindow): void => {
 
   // 检查更新出错
   autoUpdater.on('error', (error: UpdateInfo) => {
-    window.webContents.send(IPC.UPDATA_ERROR, {
-      message: '检查更新出错'
-    }, error)
+    window.webContents.send(
+      IPC.UPDATA_ERROR,
+      {
+        message: '检查更新出错'
+      },
+      error
+    )
   })
 
   // 检查到新版本
@@ -65,4 +69,6 @@ export default (window: BrowserWindow): void => {
   ipcMain.handle(IPC.UPDATA_QUITANDINSTALL, () => {
     autoUpdater.quitAndInstall()
   })
+
+  autoUpdater.checkForUpdatesAndNotify()
 }

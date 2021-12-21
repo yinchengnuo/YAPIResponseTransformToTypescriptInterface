@@ -8,7 +8,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { ref } from 'vue'
 import IPC from '@/../app/src/IPC'
 import { version } from '@/../package.json'
 import { notification, Modal } from 'ant-design-vue'
@@ -61,10 +61,6 @@ ipcRenderer.on(IPC.UPDATA_DOWNLOADED, () => {
 const checkUpdata = () => {
   ipcRenderer.invoke(IPC.CHECK_UPDATA)
 }
-
-onMounted(() => {
-  checkUpdata()
-})
 </script>
 
 <style lang="scss" scoped>
