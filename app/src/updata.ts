@@ -14,10 +14,10 @@ export default (window: BrowserWindow): void => {
     url: 'https://7463-tcb-wvejp0kobnwg4yva44474-1164c4-1302828448.tcb.qcloud.la/electron'
   })
 
-  // 开始检查更新
+  // 正在检查更新
   autoUpdater.on('checking-for-update', () => {
     window.webContents.send(IPC.UPDATA_CHECKING, {
-      message: '开始检查更新'
+      message: '正在检查更新'
     })
   })
 
@@ -56,16 +56,13 @@ export default (window: BrowserWindow): void => {
     })
   })
 
-  // 立即更新
+  // 操作开始更新
+  ipcMain.handle(IPC.CHECK_UPDATA, () => {
+    autoUpdater.checkForUpdatesAndNotify()
+  })
+
+  // 操作立即更新
   ipcMain.handle(IPC.UPDATA_QUITANDINSTALL, () => {
     autoUpdater.quitAndInstall()
   })
-
-  // 检查更新
-  autoUpdater.checkForUpdatesAndNotify()
-
-  // 5分钟检查更新一次
-  setInterval(() => {
-    autoUpdater.checkForUpdatesAndNotify()
-  }, 1000 * 60 * 5)
 }

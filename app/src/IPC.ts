@@ -9,6 +9,8 @@
 
 export default {
   // 开始检查更新
+  CHECK_UPDATA: 'UPDATA_CHECKING',
+  // 正在检查更新
   UPDATA_CHECKING: 'UPDATA_CHECKING',
   // 检查更新出错
   UPDATA_ERROR: 'UPDATA_ERROR',

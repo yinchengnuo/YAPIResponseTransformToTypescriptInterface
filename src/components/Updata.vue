@@ -1,14 +1,14 @@
 <template>
   <div v-if="$route.path === '/'" class="bar flex">
     <a-button type="link" @click="$router.push('/port')">串口测试</a-button>
-    <span> v {{ version }}</span>
+    <span @dblclick="checkUpdata"> v {{ version }}</span>
     <a-button type="link" @click="$router.push('/print')">打印测试</a-button>
   </div>
   <a-progress v-if="+percent" status="active" :percent="percent" />
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import IPC from '@/../app/src/IPC'
 import { version } from '@/../package.json'
 import { notification, Modal } from 'ant-design-vue'
@@ -55,6 +55,15 @@ ipcRenderer.on(IPC.UPDATA_DOWNLOADED, () => {
       ipcRenderer.invoke(IPC.UPDATA_QUITANDINSTALL)
     }
   })
+})
+
+// 检查更新
+const checkUpdata = () => {
+  ipcRenderer.invoke(IPC.CHECK_UPDATA)
+}
+
+onMounted(() => {
+  checkUpdata()
 })
 </script>
 

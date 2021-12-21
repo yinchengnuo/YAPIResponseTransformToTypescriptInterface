@@ -1,6 +1,6 @@
 {
   "name": "yapiresponsetransformtotypescriptinterface",
-  "version": "1.0.2",
+  "version": "1.0.0",
   "license": "MIT",
   "main": "dist/index.js",
   "description": "YAPI Response RAW 转 Typescript Interface 小工具。",
