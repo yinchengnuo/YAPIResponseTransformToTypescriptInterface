@@ -4,7 +4,7 @@
     <span> v {{ version }}</span>
     <a-button type="link" @click="$router.push('/print')">打印测试</a-button>
   </div>
-  <a-progress v-if="percent" status="active" :percent="percent" />
+  <a-progress v-if="+percent" status="active" :percent="percent" />
 </template>
 
 <script setup lang="ts">
