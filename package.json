@@ -1,6 +1,6 @@
 {
   "name": "yapiresponsetransformtotypescriptinterface",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "license": "MIT",
   "main": "dist/index.js",
   "description": "YAPI Response RAW 转 Typescript Interface 小工具。",
@@ -14,69 +14,48 @@
     "build": "vite build",
     "build:test": "vite build --mode test",
     "dev:electron": "concurrently \"npm run dev\" \"wait-on tcp:3000 && npm run esbuild:dev\"",
-    "build:electron": "tsc -p app --noEmit && npm run build && npm run esbuild:build && electron-builder -w",
-    "build:electron:test": "tsc -p app --noEmit && npm run build:test && npm run esbuild:build && electron-builder -w",
+    "build:electron": "tsc -p app --noEmit && npm run build && npm run esbuild:build && node ./dist/build.js",
+    "build:electron:test": "tsc -p app --noEmit && npm run build:test && npm run esbuild:build && node ./dist/build.js",
     "esbuild:dev": "cross-env ELECTRON_ENV=development node ./index.js",
     "esbuild:build": "cross-env ELECTRON_ENV=production node ./index.js",
     "serve": "vite preview --host",
     "gyp": "node-gyp rebuild --directory=./node_modules/@serialport/bindings/ --target=16.0.1 --arch=x64 --dist-url=https://atom.io/download/electron",
     "prepare": "husky install && npm run gyp"
   },
-  "npmRebuild": false,
-  "buildDependenciesFromSource": true,
-  "build": {
-    "appId": "YAPI",
-    "productName": "YAPI TS",
-    "files": [
-      "dist/**/*"
-    ],
-    "directories": {
-      "output": "build"
-    },
-    "win": {
-      "icon": "src/assets/my.png"
-    },
-    "mac": {
-      "icon": "src/assets/my.png"
-    }
-  },
-  "electronDownload": {
-    "mirror": "https://npm.taobao.org/mirrors/electron/"
-  },
   "devDependencies": {
-    "@types/node": "^14.17.34",
-    "@types/serialport": "^8.0.2",
-    "@typescript-eslint/eslint-plugin": "^5.2.0",
-    "@typescript-eslint/parser": "^5.2.0",
-    "@vitejs/plugin-vue": "^1.3.0",
-    "@vue/compiler-sfc": "^3.0.5",
-    "ant-design-vue": "^2.2.8",
-    "concurrently": "^6.4.0",
-    "cross-env": "^7.0.3",
-    "electron": "^16.0.1",
-    "electron-builder": "^22.13.1",
-    "electron-connect": "^0.6.3",
-    "esbuild-node-externals": "^1.4.0",
-    "eslint": "^7.32.0",
-    "eslint-config-standard": "^16.0.3",
-    "eslint-plugin-import": "^2.25.2",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^5.1.1",
-    "eslint-plugin-vue": "^8.0.3",
-    "husky": "^7.0.4",
-    "lint-staged": "^11.2.6",
-    "prettier": "^2.4.1",
-    "sass": "^1.43.4",
-    "typescript": "^4.3.2",
-    "vite": "^2.4.4",
-    "vue": "^3.0.5",
+    "@types/node": "14.17.34",
+    "@types/serialport": "8.0.2",
+    "@typescript-eslint/eslint-plugin": "5.2.0",
+    "@typescript-eslint/parser": "5.2.0",
+    "@vitejs/plugin-vue": "1.3.0",
+    "@vue/compiler-sfc": "3.0.5",
+    "ant-design-vue": "2.2.8",
+    "concurrently": "6.4.0",
+    "cross-env": "7.0.3",
+    "electron": "16.0.1",
+    "electron-builder": "22.13.1",
+    "electron-connect": "0.6.3",
+    "esbuild-node-externals": "1.4.0",
+    "eslint": "7.32.0",
+    "eslint-config-standard": "16.0.3",
+    "eslint-plugin-import": "2.25.2",
+    "eslint-plugin-node": "11.1.0",
+    "eslint-plugin-promise": "5.1.1",
+    "eslint-plugin-vue": "8.0.3",
+    "husky": "7.0.4",
+    "lint-staged": "11.2.6",
+    "prettier": "2.4.1",
+    "sass": "1.43.4",
+    "typescript": "4.3.2",
+    "vite": "2.4.4",
+    "vue": "3.0.5",
     "vue-router": "4",
-    "vue-tsc": "^0.2.2",
-    "vuex": "^4.0.2",
-    "wait-on": "^6.0.0"
+    "vue-tsc": "0.2.2",
+    "vuex": "4.0.2",
+    "wait-on": "6.0.0"
   },
   "dependencies": {
-    "serialport": "^9.2.8",
-    "electron-updater": "^4.6.1"
+    "serialport": "9.2.8",
+    "electron-updater": "4.6.1"
   }
 }

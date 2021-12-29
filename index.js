@@ -12,7 +12,7 @@ esbuild
     platform: 'node', // 平台 node
     outdir: './dist', // 输出到 build 文件夹
     plugins: [nodeExternalsPlugin()], // 不把主进程代码中引用的 node_modules 包代码打进主进程代码里
-    entryPoints: ['app/index.ts', 'app/preload.ts'], // 入口文件
+    entryPoints: ['app/index.ts', 'app/preload.ts', 'app/build.ts'], // 入口文件
     watch: development
       ? {
           onRebuild: (err) => {

@@ -85,7 +85,7 @@
 </template>
 
 <script setup lang="ts">
-import Avatar from '@/assets/my.png'
+import Avatar from '@/assets/icon.png'
 import { JSObject, SchemaJson } from './data'
 
 import { ref, Ref, reactive, computed, ComputedRef } from 'vue'
