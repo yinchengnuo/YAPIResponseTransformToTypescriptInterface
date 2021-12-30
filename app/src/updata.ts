@@ -11,7 +11,7 @@ export default (window: BrowserWindow): void => {
   // 实例化 autoUpdater
   const autoUpdater = new NsisUpdater({
     provider: 'generic',
-    url: 'https://7463-tcb-wvejp0kobnwg4yva44474-1164c4-1302828448.tcb.qcloud.la/electron'
+    url: 'https://646d-dmhc-947ccf-1302828448.tcb.qcloud.la/electron'
   })
 
   // 正在检查更新
