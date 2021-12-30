@@ -3,7 +3,7 @@
     <!-- 头像 -->
     <a-page-header :avatar="{ src: Avatar }">
       <!-- 名称 -->
-      <template #title> YAPI Response 转 Typescript Interface </template>
+      <template #title>TS接口转换器</template>
       <!-- 代码仓库 -->
       <template #subTitle>
         <a-button type="link" target="_blank" href="http://10.106.11.64/yinchengnuo/yapiresponsetransformtotypescriptinterface">Gitlab</a-button>
@@ -108,7 +108,11 @@ const tags: Array<{ value: string; color: string }> = [
   { value: 'volar', color: 'purple' },
   { value: 'sass', color: 'gold' },
   { value: 'husky', color: 'yellow' },
-  { value: 'lint-staged', color: 'blue' }
+  { value: 'lint-staged', color: 'blue' },
+  { value: 'electron', color: 'violet' },
+  { value: 'electron-builder', color: 'plum' },
+  { value: 'electron-updater', color: 'coral' },
+  { value: 'serialport', color: 'tan' }
 ]
 
 // 编译配置

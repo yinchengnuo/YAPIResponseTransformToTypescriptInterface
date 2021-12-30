@@ -86,7 +86,10 @@ const getPortList = () => {
     .then((config: Array<PortInfo>) => {
       list.value = config
     })
-    .catch((e: Error) => message.error(e.message))
+    .catch((e: Error) => {
+      message.destroy()
+      message.error(e.message)
+    })
 }
 
 // 页面挂载完毕
