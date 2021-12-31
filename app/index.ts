@@ -1,13 +1,11 @@
 import path from 'path'
 import { app, BrowserWindow } from 'electron'
 
+import menu from './src/menu'
 import print from './src/print'
 import updata from './src/updata'
 import shortcut from './src/shortcut'
 import platform from './src/platform'
-
-// app 初始化
-import './src/init'
 
 app.whenReady().then(() => {
   const window = new BrowserWindow({
@@ -38,6 +36,9 @@ app.whenReady().then(() => {
       module.default(window)
     })
   }
+
+  // 初始化菜单
+  menu(window)
 
   // 初始化打印机
   print(window)
