@@ -5,17 +5,6 @@ export default (window: BrowserWindow): void => {
   Menu.setApplicationMenu(
     Menu.buildFromTemplate([
       {
-        label: 'TS接口转换器',
-        submenu: [
-          {
-            label: '退出应用',
-            click () {
-              app.quit()
-            }
-          }
-        ]
-      },
-      {
         label: '操作',
         submenu: [
           {
@@ -58,6 +47,12 @@ export default (window: BrowserWindow): void => {
                 }
               }
             ]
+          },
+          {
+            label: '退出应用',
+            click () {
+              app.quit()
+            }
           }
         ]
       },
