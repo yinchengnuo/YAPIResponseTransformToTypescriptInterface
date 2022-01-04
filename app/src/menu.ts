@@ -37,6 +37,23 @@ export default (window: BrowserWindow): void => {
             }
           },
           {
+            label: '缩放',
+            submenu: [
+              {
+                label: '+',
+                click () {
+                  window.webContents.setZoomFactor(window.webContents.getZoomFactor() + 0.1)
+                }
+              },
+              {
+                label: '-',
+                click () {
+                  window.webContents.setZoomFactor(window.webContents.getZoomFactor() - 0.1)
+                }
+              }
+            ]
+          },
+          {
             label: '路由',
             submenu: [
               {
