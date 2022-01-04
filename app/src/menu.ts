@@ -8,12 +8,6 @@ export default (window: BrowserWindow): void => {
         label: 'TS接口转换器',
         submenu: [
           {
-            label: '进入/退出全屏',
-            click () {
-              window.setFullScreen(!window.isFullScreen())
-            }
-          },
-          {
             label: '退出应用',
             click () {
               app.quit()
@@ -25,6 +19,12 @@ export default (window: BrowserWindow): void => {
         label: '操作',
         submenu: [
           {
+            label: '哔哔',
+            click () {
+              shell.beep()
+            }
+          },
+          {
             label: '刷新',
             click () {
               window.reload()
@@ -35,23 +35,6 @@ export default (window: BrowserWindow): void => {
             click () {
               window.webContents.toggleDevTools()
             }
-          },
-          {
-            label: '缩放',
-            submenu: [
-              {
-                label: '+',
-                click () {
-                  window.webContents.setZoomFactor(window.webContents.getZoomFactor() + 0.1)
-                }
-              },
-              {
-                label: '-',
-                click () {
-                  window.webContents.setZoomFactor(window.webContents.getZoomFactor() - 0.1)
-                }
-              }
-            ]
           },
           {
             label: '路由',
@@ -75,6 +58,45 @@ export default (window: BrowserWindow): void => {
                 }
               }
             ]
+          }
+        ]
+      },
+      {
+        label: '窗口',
+        submenu: [
+          {
+            label: '缩放',
+            submenu: [
+              {
+                label: '+',
+                click () {
+                  window.webContents.setZoomFactor(window.webContents.getZoomFactor() + 0.1)
+                }
+              },
+              {
+                label: '-',
+                click () {
+                  window.webContents.setZoomFactor(window.webContents.getZoomFactor() - 0.1)
+                }
+              }
+            ]
+          },
+          {
+            label: '进入/退出全屏',
+            click () {
+              window.setFullScreen(!window.isFullScreen())
+            }
+          },
+          {
+            label: '最小化',
+            click () {
+              if (window.isFullScreen()) {
+                window.on('leave-full-screen', window.minimize)
+                window.setFullScreen(!window.isFullScreen())
+              } else {
+                window.minimize()
+              }
+            }
           }
         ]
       },
