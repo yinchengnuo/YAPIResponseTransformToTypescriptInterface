@@ -36,10 +36,12 @@ const config: Configuration = {
 }
 
 Promise.all([
-  build({
-    config,
-    targets: Platform.MAC.createTarget()
-  }),
+  process.platform === 'darwin'
+    ? build({
+      config,
+      targets: Platform.MAC.createTarget()
+    })
+    : Promise.resolve(),
   build({
     config,
     targets: Platform.WINDOWS.createTarget()
