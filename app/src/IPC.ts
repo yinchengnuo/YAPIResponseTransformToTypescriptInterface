@@ -1,7 +1,7 @@
 /*
  * @Author: 尹成诺
  * @Date: 2021-11-24 19:57:29
- * @LastEditTime: 2021-12-02 23:12:43
+ * @LastEditTime: 2022-01-05 17:26:27
  * @LastEditors: Please set LastEditors
  * @Description: IPC 通信 channel 表
  * @FilePath: /yapiresponsetransformtotypescriptinterface/app/src/IPC.ts
@@ -18,10 +18,12 @@ export default {
   UPDATA_AVAILABLE: 'UPDATA_AVAILABLE',
   // 已经是新版本
   UPDATA_NOT_AVAILABLE: 'UPDATA_NOT_AVAILABLE',
-  // 更新下载中
-  UPDATA_DOWNLOAD_PROGRESS: 'UPDATA_DOWNLOAD_PROGRESS',
   // 更新下载完毕
   UPDATA_DOWNLOADED: 'UPDATA_DOWNLOADED',
+  // 更新下载完毕但用户取消安装
+  UPDATA_DOWNLOADED_NOT_INSTALLED: 'UPDATA_DOWNLOADED_NOT_INSTALLED',
+  // 更新下载完毕但用户取消安装后关闭强制更新
+  UPDATA_DOWNLOADED_QUIT_INSTALL: 'UPDATA_DOWNLOADED_QUIT_INSTALL',
   // 立即更新
   UPDATA_QUITANDINSTALL: 'UPDATA_QUITANDINSTALL',
   // 获取打印机列表

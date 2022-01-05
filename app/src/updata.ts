@@ -7,9 +7,13 @@ import { NsisUpdater, UpdateInfo } from 'electron-updater'
  * @param {BrowserWindow} window
  * @return {*}
  */
+let autoUpdater: NsisUpdater
+let UPDATA_DOWNLOADED_NOT_INSTALLED = false
+
+export { autoUpdater }
 export default (window: BrowserWindow): void => {
   // 实例化 autoUpdater
-  const autoUpdater = new NsisUpdater({
+  autoUpdater = new NsisUpdater({
     provider: 'generic',
     url: 'https://646d-dmhc-947ccf-1302828448.tcb.qcloud.la/electron'
   })
@@ -47,25 +51,34 @@ export default (window: BrowserWindow): void => {
   })
 
   // 更新下载中
-  autoUpdater.on('download-progress', (info: { percent: string }) => {
-    window.webContents.send(IPC.UPDATA_DOWNLOAD_PROGRESS, {
-      percent: info.percent
-    })
+  autoUpdater.on('download-progress', ({ percent }: { percent: number }) => {
+    window.setProgressBar(percent / 100)
   })
 
   // 更新下载完毕
   autoUpdater.on('update-downloaded', () => {
-    window.webContents.send(IPC.UPDATA_DOWNLOADED, {
-      message: '新版本下载完毕'
-    })
+    window.webContents.send(IPC.UPDATA_DOWNLOADED)
   })
 
-  // 操作开始更新
+  // 取消立即更新
+  ipcMain.handle(IPC.UPDATA_DOWNLOADED_NOT_INSTALLED, () => {
+    UPDATA_DOWNLOADED_NOT_INSTALLED = true
+  })
+
+  // 关闭应用强制更新
+  window.once('close', (e) => {
+    if (UPDATA_DOWNLOADED_NOT_INSTALLED) {
+      window.webContents.send(IPC.UPDATA_DOWNLOADED_QUIT_INSTALL)
+      e.preventDefault()
+    }
+  })
+
+  // 点击 检查更新
   ipcMain.handle(IPC.CHECK_UPDATA, () => {
     autoUpdater.checkForUpdatesAndNotify()
   })
 
-  // 操作立即更新
+  // 点击 立即更新
   ipcMain.handle(IPC.UPDATA_QUITANDINSTALL, () => {
     autoUpdater.quitAndInstall()
   })

@@ -1,19 +1,16 @@
 <template>
   <div v-if="$route.path === '/'" class="bar flex">
     <a-button type="link" @click="$router.push('/port')">串口测试</a-button>
-    <span @dblclick="checkUpdata"> v {{ version }}</span>
+    <span> v {{ version }}</span>
     <a-button type="link" @click="$router.push('/print')">打印测试</a-button>
   </div>
-  <a-progress v-if="+percent" status="active" :percent="percent" />
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
 import IPC from '@/../app/src/IPC'
 import { version } from '@/../package.json'
 import { notification, Modal } from 'ant-design-vue'
 const { ipcRenderer } = require('electron')
-const percent = ref('0')
 
 interface NotificationConfig {
   message: string;
@@ -42,25 +39,41 @@ ipcRenderer.on(IPC.UPDATA_NOT_AVAILABLE, (_: Event, config: NotificationConfig) 
   notification.open({ ...config })
 })
 
-// 更新下载中
-ipcRenderer.on(IPC.UPDATA_DOWNLOAD_PROGRESS, (_: Event, config: NotificationConfig) => {
-  percent.value = Number(config.percent).toFixed(0)
-})
-
 // 更新下载完毕
 ipcRenderer.on(IPC.UPDATA_DOWNLOADED, () => {
   Modal.confirm({
-    title: () => '新版本已经准备就绪，是否现在更新',
+    title: () => '应用更新',
+    content: '新版本已经准备就绪，是否现在更新',
     onOk () {
       ipcRenderer.invoke(IPC.UPDATA_QUITANDINSTALL)
+    },
+    onCancel () {
+      ipcRenderer.invoke(IPC.UPDATA_DOWNLOADED_NOT_INSTALLED)
     }
   })
 })
 
-// 检查更新
-const checkUpdata = () => {
-  ipcRenderer.invoke(IPC.CHECK_UPDATA)
-}
+// 强制更新安装
+ipcRenderer.on(IPC.UPDATA_DOWNLOADED_QUIT_INSTALL, () => {
+  let counter = 5
+  const config = {
+    title: () => '应用更新',
+    content: '新版本已经准备就绪，即将开始安装，请勿关闭电脑',
+    okText: `${counter}S后开始安装`
+  }
+  const info = Modal.info(config)
+  const timer = setInterval(() => {
+    counter--
+    info.update({
+      ...config,
+      okText: `${counter}S后开始安装`
+    })
+    if (counter === 0) {
+      ipcRenderer.invoke(IPC.UPDATA_QUITANDINSTALL)
+      clearInterval(timer)
+    }
+  }, 1000)
+})
 </script>
 
 <style lang="scss" scoped>

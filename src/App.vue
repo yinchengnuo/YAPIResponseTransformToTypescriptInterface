@@ -7,7 +7,7 @@
 
 <script setup lang="ts">
 import { ref, Ref } from 'vue'
-import Updata from '@/components/Updata.vue'
+import Updata from '@/components/Bottom.vue'
 import locale from 'ant-design-vue/es/locale/zh_CN'
 const electron: Ref<boolean> = ref(Boolean(window.require))
 </script>

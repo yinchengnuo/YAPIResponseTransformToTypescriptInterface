@@ -1,3 +1,4 @@
+import { autoUpdater } from './updata'
 import { app, Menu, BrowserWindow, shell } from 'electron'
 
 export default (window: BrowserWindow): void => {
@@ -49,6 +50,12 @@ export default (window: BrowserWindow): void => {
             ]
           },
           {
+            label: '检查更新',
+            click () {
+              autoUpdater.checkForUpdatesAndNotify()
+            }
+          },
+          {
             label: '退出应用',
             click () {
               app.quit()
@@ -63,13 +70,13 @@ export default (window: BrowserWindow): void => {
             label: '缩放',
             submenu: [
               {
-                label: '+',
+                label: '➕',
                 click () {
                   window.webContents.setZoomFactor(window.webContents.getZoomFactor() + 0.1)
                 }
               },
               {
-                label: '-',
+                label: '➖',
                 click () {
                   window.webContents.setZoomFactor(window.webContents.getZoomFactor() - 0.1)
                 }
@@ -99,7 +106,7 @@ export default (window: BrowserWindow): void => {
         label: '关于',
         submenu: [
           {
-            label: '关于',
+            label: 'README',
             click () {
               shell.openExternal('https://github.com/yinchengnuo/YAPIResponseTransformToTypescriptInterface/blob/main/README.md')
             }
