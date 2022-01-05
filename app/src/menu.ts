@@ -52,7 +52,9 @@ export default (window: BrowserWindow): void => {
           {
             label: '检查更新',
             click () {
-              autoUpdater.checkForUpdatesAndNotify()
+              if (!autoUpdater.isUpdaterActive()) {
+                autoUpdater.checkForUpdatesAndNotify()
+              }
             }
           },
           {
