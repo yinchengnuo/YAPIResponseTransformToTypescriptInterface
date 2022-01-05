@@ -8,11 +8,12 @@ const mac = process.platform === 'darwin'
 exec(`${mac ? 'rm -r ' : 'rd/s/q '}${path.resolve(__dirname, '../build')}`)
 
 const config: Configuration = {
-  appId: 'yapiresponsetransformtotypescriptinterface',
-  productName: 'TS接口转换器',
   files: ['dist/**/*'],
+  productName: 'TS接口转换器',
+  appId: 'yapiresponsetransformtotypescriptinterface',
   // eslint-disable-next-line no-template-curly-in-string
   artifactName: '${productName}_${version}.${ext}',
+  buildVersion: JSON.parse(fs.readFileSync(path.resolve(__dirname, '../package.json')).toString()).version,
   directories: {
     output: 'build'
   },
@@ -27,14 +28,14 @@ const config: Configuration = {
   },
   afterAllArtifactBuild (context: BuildResult): any {
     const name = Array.from(context.platformToTargets.keys())[0].name
-    const regExp = new RegExp(context.configuration.appId + '.+(?=....)', 'g')
+    const regExp = new RegExp(`${context.configuration.appId}.+(?=....)`, 'g')
     if (Array.from(context.platformToTargets.keys())[0].name === 'windows') {
       let ymlPath = path.resolve(context.outDir, 'latest.yml')
       if (name === 'mac') {
         ymlPath = path.resolve(context.outDir, 'latest-mac.yml')
       }
       setTimeout(() => {
-        fs.writeFileSync(ymlPath, fs.readFileSync(ymlPath).toString().replace(regExp, context.configuration.productName))
+        fs.writeFileSync(ymlPath, fs.readFileSync(ymlPath).toString().replace(regExp, `${context.configuration.productName}_${context.configuration.buildVersion}`))
       }, 999)
     }
   }
