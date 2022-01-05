@@ -10,7 +10,7 @@ import { NsisUpdater, UpdateInfo } from 'electron-updater'
 let autoUpdater: NsisUpdater
 let UPDATA_DOWNLOADED_NOT_INSTALLED = false
 
-export { autoUpdater }
+export { autoUpdater, UPDATA_DOWNLOADED_NOT_INSTALLED }
 export default (window: BrowserWindow): void => {
   // 实例化 autoUpdater
   autoUpdater = new NsisUpdater({
@@ -63,14 +63,6 @@ export default (window: BrowserWindow): void => {
   // 取消立即更新
   ipcMain.handle(IPC.UPDATA_DOWNLOADED_NOT_INSTALLED, () => {
     UPDATA_DOWNLOADED_NOT_INSTALLED = true
-  })
-
-  // 关闭应用强制更新
-  window.once('close', (e) => {
-    if (UPDATA_DOWNLOADED_NOT_INSTALLED) {
-      window.webContents.send(IPC.UPDATA_DOWNLOADED_QUIT_INSTALL)
-      e.preventDefault()
-    }
   })
 
   // 点击 检查更新

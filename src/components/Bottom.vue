@@ -18,6 +18,24 @@ interface NotificationConfig {
   description: string;
 }
 
+let confirm: any
+// 关闭应用
+ipcRenderer.on(IPC.CLOSE_APP, () => {
+  if (!confirm) {
+    confirm = Modal.confirm({
+      centered: true,
+      title: () => '提示',
+      content: () => ' 确认退出应用？',
+      onOk () {
+        ipcRenderer.invoke(IPC.DO_CLOSE_APP)
+      },
+      onCancel () {
+        confirm = null
+      }
+    })
+  }
+})
+
 // 开始检查更新
 ipcRenderer.on(IPC.UPDATA_CHECKING, (_: Event, config: NotificationConfig) => {
   notification.open({ ...config })

@@ -1,6 +1,7 @@
 import path from 'path'
 import { app, BrowserWindow } from 'electron'
 
+import init from './src/init'
 import menu from './src/menu'
 import print from './src/print'
 import updata from './src/updata'
@@ -29,7 +30,7 @@ app.whenReady().then(() => {
   // 根据 app.isPackaged 判断应用是否打包
   app.isPackaged ? window.loadFile('dist/index.html') : window.loadURL('http://localhost:3000')
 
-  // 仅仅 x86 架构芯片支持
+  // 仅 x86 架构芯片支持串口通信
   if (process.arch.startsWith('x')) {
     // 初始化串口
     import('./src/port').then(module => {
@@ -37,15 +38,14 @@ app.whenReady().then(() => {
     })
   }
 
+  // 初始化 window
+  init(window)
   // 初始化菜单
   menu(window)
-
   // 初始化打印机
   print(window)
-
   // 注册快捷键
   shortcut(window)
-
   // 不同平台的处理
   platform(window)
 })
