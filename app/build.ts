@@ -1,6 +1,11 @@
 import fs from 'fs'
 import path from 'path'
+import { exec } from 'child_process'
 import { build, Platform, Configuration, BuildResult } from 'electron-builder'
+
+const mac = process.platform === 'darwin'
+
+exec(`${mac ? 'rm -r ' : 'rd/s/q '}${path.resolve(__dirname, '../build')}`)
 
 const config: Configuration = {
   appId: 'yapiresponsetransformtotypescriptinterface',
@@ -36,7 +41,7 @@ const config: Configuration = {
 }
 
 Promise.all([
-  process.platform === 'darwin'
+  mac
     ? build({
       config,
       targets: Platform.MAC.createTarget()
