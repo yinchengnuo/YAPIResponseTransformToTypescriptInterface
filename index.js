@@ -17,8 +17,12 @@ esbuild
       ? {
           onRebuild: (err) => {
             if (!err) {
-              console.log('\x1B[31m%s\x1B[0m', '主进程代码变更，请适时重启开发环境')
-              // electron.restart()
+              if (process.platform === 'win32') {
+                electron.restart()
+                console.log('\x1b[32m', '主进程代码变更🤓主进程已重启🎉')
+              } else {
+                console.log('\x1b[31m', '主进程代码变更🤓需要适时重启开发环境😘')
+              }
             }
           }
         }

@@ -3,9 +3,15 @@ import path from 'path'
 import { exec } from 'child_process'
 import { build, Platform, Configuration, BuildResult } from 'electron-builder'
 
-const mac = process.platform === 'darwin'
+// mac 系统删除 build 目录
+if (process.platform === 'darwin') {
+  exec(`rm -r ${path.resolve(__dirname, '../build')}`)
+}
 
-exec(`${mac ? 'rm -r ' : 'rd/s/q '}${path.resolve(__dirname, '../build')}`)
+// window 系统删除 build 目录
+if (process.platform === 'win32') {
+  exec(`rd/s/q ${path.resolve(__dirname, '../build')}`)
+}
 
 const config: Configuration = {
   files: ['dist/**/*'],
@@ -26,6 +32,7 @@ const config: Configuration = {
   electronDownload: {
     mirror: 'https://npm.taobao.org/mirrors/electron/'
   },
+  // 打包完成替换 yml 中的 appid 为 productName
   afterAllArtifactBuild (context: BuildResult): any {
     const name = Array.from(context.platformToTargets.keys())[0].name
     const regExp = new RegExp(`${context.configuration.appId}.+(?=....)`, 'g')
@@ -42,7 +49,7 @@ const config: Configuration = {
 }
 
 Promise.all([
-  mac
+  process.platform === 'darwin'
     ? build({
       config,
       targets: Platform.MAC.createTarget()
@@ -52,4 +59,6 @@ Promise.all([
     config,
     targets: Platform.WINDOWS.createTarget()
   })
-])
+]).then(() => {
+  console.log('\x1b[32m', '打包完成🎉🎉🎉你要的都在 build 目录里🤪🤪🤪')
+})
