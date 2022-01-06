@@ -27,6 +27,18 @@ export const routes: Array<RouteRecordRaw> = [
     component: () => import('@/views/port/index.vue')
   },
   {
+    path: '/SQLite',
+    name: 'SQLite',
+    meta: { title: 'SQLite' },
+    component: () => import('@/views/SQLite/index.vue')
+  },
+  {
+    path: '/IndexedDB',
+    name: 'IndexedDB',
+    meta: { title: 'IndexedDB' },
+    component: () => import('@/views/IndexedDB/index.vue')
+  },
+  {
     path: '/vue3',
     name: 'vue3',
     meta: { title: 'vue3' },
