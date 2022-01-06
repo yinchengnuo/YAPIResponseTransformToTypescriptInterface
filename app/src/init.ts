@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain } from 'electron'
+import { app, BrowserWindow } from 'electron'
 import IPC from './IPC'
 import { UPDATA_DOWNLOADED_NOT_INSTALLED } from './updata'
 
@@ -10,15 +10,11 @@ import { UPDATA_DOWNLOADED_NOT_INSTALLED } from './updata'
 export default (window: BrowserWindow): void => {
   // 关闭提示
   window.on('close', (e) => {
-    window.webContents.send(IPC.CLOSE_APP)
-    e.preventDefault()
-  })
-  // 确认关闭
-  ipcMain.handle(IPC.DO_CLOSE_APP, () => {
     if (UPDATA_DOWNLOADED_NOT_INSTALLED) {
       window.webContents.send(IPC.UPDATA_DOWNLOADED_QUIT_INSTALL)
+      e.preventDefault()
     } else {
-      app.exit()
+      app.quit()
     }
   })
 }

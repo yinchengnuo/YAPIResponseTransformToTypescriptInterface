@@ -1,17 +1,13 @@
 /*
  * @Author: 尹成诺
  * @Date: 2021-11-24 19:57:29
- * @LastEditTime: 2022-01-05 19:52:25
+ * @LastEditTime: 2022-01-06 15:03:58
  * @LastEditors: Please set LastEditors
  * @Description: IPC 通信 channel 表
  * @FilePath: /yapiresponsetransformtotypescriptinterface/app/src/IPC.ts
  */
 
 export default {
-  // 点击关闭应用
-  CLOSE_APP: 'CLOSE_APP',
-  // 确认关闭应用
-  DO_CLOSE_APP: 'DO_CLOSE_APP',
   // 开始检查更新
   CHECK_UPDATA: 'UPDATA_CHECKING',
   // 正在检查更新

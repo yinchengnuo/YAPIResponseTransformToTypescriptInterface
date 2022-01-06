@@ -52,5 +52,5 @@ app.whenReady().then(() => {
 
 // 全部渲染进程关闭退出应用
 app.on('window-all-closed', () => {
-  app.exit()
+  app.quit()
 })

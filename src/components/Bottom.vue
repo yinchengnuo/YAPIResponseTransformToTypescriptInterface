@@ -9,7 +9,7 @@
 <script setup lang="ts">
 import IPC from '@/../app/src/IPC'
 import { version } from '@/../package.json'
-import { notification, Modal } from 'ant-design-vue'
+import { notification, Modal, ModalFuncProps } from 'ant-design-vue'
 const { ipcRenderer } = require('electron')
 
 interface NotificationConfig {
@@ -17,24 +17,6 @@ interface NotificationConfig {
   percent: string;
   description: string;
 }
-
-let confirm: any
-// 关闭应用
-ipcRenderer.on(IPC.CLOSE_APP, () => {
-  if (!confirm) {
-    confirm = Modal.confirm({
-      centered: true,
-      title: () => '提示',
-      content: () => ' 确认退出应用？',
-      onOk () {
-        ipcRenderer.invoke(IPC.DO_CLOSE_APP)
-      },
-      onCancel () {
-        confirm = null
-      }
-    })
-  }
-})
 
 // 开始检查更新
 ipcRenderer.on(IPC.UPDATA_CHECKING, (_: Event, config: NotificationConfig) => {
@@ -60,6 +42,7 @@ ipcRenderer.on(IPC.UPDATA_NOT_AVAILABLE, (_: Event, config: NotificationConfig) 
 // 更新下载完毕
 ipcRenderer.on(IPC.UPDATA_DOWNLOADED, () => {
   Modal.confirm({
+    centered: true,
     title: () => '应用更新',
     content: '新版本已经准备就绪，是否现在更新',
     onOk () {
@@ -74,7 +57,8 @@ ipcRenderer.on(IPC.UPDATA_DOWNLOADED, () => {
 // 强制更新安装
 ipcRenderer.on(IPC.UPDATA_DOWNLOADED_QUIT_INSTALL, () => {
   let counter = 5
-  const config = {
+  const config: ModalFuncProps = {
+    centered: true,
     title: () => '应用更新',
     content: '新版本已经准备就绪，即将开始安装，请勿关闭电脑',
     okText: `${counter}S后开始安装`
