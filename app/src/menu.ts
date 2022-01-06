@@ -60,7 +60,7 @@ export default (window: BrowserWindow): void => {
           {
             label: '退出应用',
             click () {
-              app.quit()
+              app.exit()
             }
           }
         ]
