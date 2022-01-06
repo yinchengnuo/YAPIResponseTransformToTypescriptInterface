@@ -2,12 +2,13 @@
   <a-config-provider :locale="locale">
     <router-view />
   </a-config-provider>
-  <Updata />
+  <Bottom v-if="require" />
 </template>
 
 <script setup lang="ts">
-import Updata from '@/components/Bottom.vue'
+import Bottom from '@/components/Bottom.vue'
 import locale from 'ant-design-vue/es/locale/zh_CN'
+const require = Boolean(window.require)
 </script>
 
 <style>
