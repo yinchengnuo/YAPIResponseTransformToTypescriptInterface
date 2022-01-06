@@ -34,15 +34,20 @@ const config: Configuration = {
   },
   // 打包完成替换 yml 中的 appid 为 productName
   afterAllArtifactBuild (context: BuildResult): any {
-    const name = Array.from(context.platformToTargets.keys())[0].name
+    const name = context.configuration.productName
+    const version = context.configuration.buildVersion
+    const platform = Array.from(context.platformToTargets.keys())[0].name
     const regExp = new RegExp(`${context.configuration.appId}.+(?=....)`, 'g')
-    if (Array.from(context.platformToTargets.keys())[0].name === 'windows') {
-      let ymlPath = path.resolve(context.outDir, 'latest.yml')
-      if (name === 'mac') {
-        ymlPath = path.resolve(context.outDir, 'latest-mac.yml')
-      }
+    let ymlPath = ''
+    if (platform === 'windows') {
+      ymlPath = path.resolve(context.outDir, 'latest.yml')
+    }
+    if (platform === 'mac') {
+      ymlPath = path.resolve(context.outDir, 'latest-mac.yml')
+    }
+    if (ymlPath) {
       setTimeout(() => {
-        fs.writeFileSync(ymlPath, fs.readFileSync(ymlPath).toString().replace(regExp, `${context.configuration.productName}_${context.configuration.buildVersion}`))
+        fs.writeFileSync(ymlPath, fs.readFileSync(ymlPath).toString().replace(regExp, `${name}_${version}`))
       }, 999)
     }
   }
