@@ -1,22 +1,37 @@
 import IPC from './IPC'
 import { BrowserWindow, ipcMain } from 'electron'
-import { NsisUpdater, UpdateInfo } from 'electron-updater'
+import { NsisUpdater, MacUpdater, UpdateInfo } from 'electron-updater'
 
 /**
  * @description: 应用检查更新相关逻辑
  * @param {BrowserWindow} window
  * @return {*}
  */
-let autoUpdater: NsisUpdater
+let autoUpdater: NsisUpdater | MacUpdater
 let UPDATA_DOWNLOADED_NOT_INSTALLED = false
 
 export { autoUpdater, UPDATA_DOWNLOADED_NOT_INSTALLED }
 export default (window: BrowserWindow): void => {
   // 实例化 autoUpdater
-  autoUpdater = new NsisUpdater({
-    provider: 'generic',
-    url: 'https://646d-dmhc-947ccf-1302828448.tcb.qcloud.la/electron'
-  })
+
+  if (process.platform === 'darwin') {
+    autoUpdater = new MacUpdater({
+      provider: 'generic',
+      url: 'https://646d-dmhc-947ccf-1302828448.tcb.qcloud.la/electron'
+    })
+  }
+
+  // window 系统删除 build 目录
+  if (process.platform === 'win32') {
+    autoUpdater = new NsisUpdater({
+      provider: 'generic',
+      url: 'https://646d-dmhc-947ccf-1302828448.tcb.qcloud.la/electron'
+    })
+  }
+
+  if (!autoUpdater) {
+    return
+  }
 
   // 正在检查更新
   autoUpdater.on('checking-for-update', () => {

@@ -9,7 +9,7 @@ import { UPDATA_DOWNLOADED_NOT_INSTALLED } from './updata'
  */
 export default (window: BrowserWindow): void => {
   // 关闭提示
-  window.on('close', (e) => {
+  window.once('close', (e) => {
     if (UPDATA_DOWNLOADED_NOT_INSTALLED) {
       window.webContents.send(IPC.UPDATA_DOWNLOADED_QUIT_INSTALL)
       e.preventDefault()
