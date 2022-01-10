@@ -21,10 +21,16 @@ export const routes: Array<RouteRecordRaw> = [
     component: () => import('@/views/print/index.vue')
   },
   {
-    path: '/port',
-    name: 'port',
-    meta: { title: '串口' },
-    component: () => import('@/views/port/index.vue')
+    path: '/serialport',
+    name: 'serialport',
+    meta: { title: '串口通信（serialport）' },
+    component: () => import('@/views/serialport/index.vue')
+  },
+  {
+    path: '/webserial',
+    name: 'webserial',
+    meta: { title: '串口通信（webserial）' },
+    component: () => import('@/views/webserial/index.vue')
   },
   {
     path: '/SQLite',

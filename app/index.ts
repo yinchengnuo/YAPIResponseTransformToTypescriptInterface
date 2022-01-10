@@ -7,6 +7,7 @@ import print from './src/print'
 import updata from './src/updata'
 import shortcut from './src/shortcut'
 import platform from './src/platform'
+import webserial from './src/webserial'
 
 app.whenReady().then(() => {
   const window = new BrowserWindow({
@@ -33,7 +34,7 @@ app.whenReady().then(() => {
   // 仅 x86 架构芯片支持串口通信
   if (process.arch.startsWith('x')) {
     // 初始化串口
-    import('./src/port').then(module => {
+    import('./src/serialport').then(module => {
       module.default(window)
     })
   }
@@ -48,6 +49,8 @@ app.whenReady().then(() => {
   shortcut(window)
   // 不同平台的处理
   platform(window)
+  // 初始化串口通信
+  webserial(window)
 })
 
 // 全部渲染进程关闭退出应用

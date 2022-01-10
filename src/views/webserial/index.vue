@@ -1,16 +1,15 @@
 <template>
   <div class="port flexc">
-    <h2>Electron 串口通信</h2>
+    <h2>Electron 串口通信(webserial)</h2>
     <a-divider />
     <h3>串口列表</h3>
-    <a-table class="w100" rowKey="pnpId" :data-source="list" bordered :pagination="false">
-      <a-table-column key="path" title="path" data-index="path" />
-      <a-table-column key="pnpId" title="pnpId" data-index="pnpId" />
+    <a-table class="w100" rowKey="portId" :data-source="list" bordered :pagination="false">
+      <a-table-column key="portId" title="portId" data-index="portId" />
+      <a-table-column key="portName" title="portName" data-index="portName" />
       <a-table-column key="vendorId" title="vendorId" data-index="vendorId" />
       <a-table-column key="productId" title="productId" data-index="productId" />
-      <a-table-column key="locationId" title="locationId" data-index="locationId" />
-      <a-table-column key="serialNumber" title="serialNumber" data-index="serialNumber" />
-      <a-table-column key="manufacturer" title="manufacturer" data-index="manufacturer" />
+      <a-table-column key="displayName" title="displayName" data-index="displayName" />
+      <a-table-column key="usbDriverName" title="usbDriverName" data-index="usbDriverName" />
     </a-table>
     <a-divider />
     <h3>串口信息</h3>
@@ -54,16 +53,24 @@
 
 <script setup lang="ts">
 import IPC from '@/../app/src/IPC'
-import { PortInfo } from 'serialport'
 import { message } from 'ant-design-vue'
-import { ref, Ref, reactive, onMounted, onUnmounted } from 'vue'
+import { ref, Ref, reactive, onMounted } from 'vue'
 
 const { ipcRenderer } = require('electron')
+
+interface PortInfo {
+  portId: string;
+  portName: string;
+  vendorId?: string;
+  productId?: string;
+  displayName?: string;
+  usbDriverName?: string;
+}
 
 const refPortInfo = ref()
 const list: Ref<Array<PortInfo>> = ref([])
 const isPortOpened: Ref<boolean> = ref(false)
-const keyStatus: Ref<Array<boolean>> = ref([false, false, false, false])
+// const keyStatus: Ref<Array<boolean>> = ref([false, false, false, false])
 
 // 要打开的串口信息
 const dataPortInfo = reactive({
@@ -75,34 +82,20 @@ const dataPortInfo = reactive({
 })
 
 // 从串口接受到数据
-ipcRenderer.on(IPC.ACCEPT_DATA_FROM_PORT, (_: Event, data: string) => {
-  keyStatus.value = data.split('').map((e: string) => Boolean(Number(e)))
+ipcRenderer.on(IPC.GOT_PORT_LIST, (_: Event, portList: Array<PortInfo>) => {
+  console.log(portList, 'portList')
+  list.value = portList
 })
 
 // 获取串口列表
 const getPortList = () => {
-  ipcRenderer
-    .invoke(IPC.GET_PORT_LIST)
-    .then((config: Array<PortInfo>) => {
-      list.value = config
-    })
-    .catch((e: Error) => {
-      message.destroy()
-      message.error(e.message)
-    })
+  (navigator as any).serial.requestPort().then(console.log).catch(console.log)
 }
 
 // 页面挂载完毕
 onMounted(() => {
   // 获取串口列表
   getPortList()
-  // 实时获取串口列表
-  const timer = setInterval(getPortList, 1000)
-  // 页面关闭
-  onUnmounted(() => {
-    // 清除定时器
-    clearInterval(timer)
-  })
 })
 
 // 打开串口

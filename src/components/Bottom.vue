@@ -1,6 +1,7 @@
 <template>
   <div v-if="$route.path === '/'" class="bar flex">
-    <a-button type="link" @click="$router.push('/port')">串口通信</a-button>
+    <a-button type="link" @click="$router.push('/serialport')">串口通信 Ⅱ</a-button>
+    <a-button type="link" @click="$router.push('/webserial')">串口通信 Ⅰ</a-button>
     <a-button type="link" @click="$router.push('/print')">静默打印</a-button>
     <span> v {{ version }}</span>
     <a-button type="link" @click="$router.push('/SQLite')">SQLite</a-button>

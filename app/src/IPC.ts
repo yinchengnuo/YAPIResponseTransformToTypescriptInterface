@@ -1,7 +1,7 @@
 /*
  * @Author: 尹成诺
  * @Date: 2021-11-24 19:57:29
- * @LastEditTime: 2022-01-06 15:03:58
+ * @LastEditTime: 2022-01-10 21:32:58
  * @LastEditors: Please set LastEditors
  * @Description: IPC 通信 channel 表
  * @FilePath: /yapiresponsetransformtotypescriptinterface/app/src/IPC.ts
@@ -30,6 +30,10 @@ export default {
   GET_PRINTER_LIST: 'GET_PRINTER_LIST',
   // 获取串口列表
   GET_PORT_LIST: 'GET_PORT_LIST',
+  // 获取串口到列表(webserial)
+  GOT_PORT_LIST: 'GOT_PORT_LIST',
+  // 选择串口到(webserial)
+  SELECT_POR: 'SELECT_POR',
   // 打开串口
   OPEN_PORT: 'OPEN_PORT',
   // 关闭串口
