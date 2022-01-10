@@ -1,6 +1,6 @@
 <template>
   <div class="port flexc">
-    <h2>Electron 串口通信(serialport)仅 windows 支持</h2>
+    <h2>Electron 串口通信</h2>
     <a-divider />
     <h3>串口列表</h3>
     <a-table class="w100" rowKey="pnpId" :data-source="list" bordered :pagination="false">
@@ -16,8 +16,10 @@
     <h3>串口信息</h3>
     <a-divider />
     <a-form ref="refPortInfo" layout="inline" :model="dataPortInfo">
-      <a-form-item has-feedback label="串口" name="name" :rules="[{ required: true, trigger: ['change', 'blur'], message: '串口名不能为空' }]">
-        <a-input v-model:value="dataPortInfo.name" allowClear style="width: 120px" />
+      <a-form-item has-feedback label="串口" name="name" :rules="[{ required: true, message: '串口名不能为空' }]">
+        <a-select v-model:value="dataPortInfo.name" style="width: 120px">
+          <a-select-option v-for="item in list" :key="item.path" :value="item.path">{{ item.path }}</a-select-option>
+        </a-select>
       </a-form-item>
       <a-form-item has-feedback label="波特率" name="baudRate" :rules="[{ required: true, type: 'number', rigger: ['change', 'blur'], message: '波特率不能为空' }]">
         <a-input-number v-model:value="dataPortInfo.baudRate" allowClear style="width: 120px" />
@@ -52,6 +54,9 @@
     <a-divider />
     <h3>按键测试（从8051接收数据）</h3>
     <a-divider />
+    <div class="flex">
+      <div v-for="item in 4" :key="item" class="flex k" :class="{ active: item === +key }">K{{ item + 1 }}</div>
+    </div>
   </div>
 </template>
 
@@ -59,18 +64,18 @@
 import IPC from '@/../app/src/IPC'
 import { PortInfo } from 'serialport'
 import { message } from 'ant-design-vue'
-import { ref, Ref, reactive, onMounted, onUnmounted } from 'vue'
+import { ref, Ref, reactive, onMounted } from 'vue'
 
 const { ipcRenderer } = require('electron')
 
+const key = ref('')
 const refPortInfo = ref()
 const list: Ref<Array<PortInfo>> = ref([])
 const isPortOpened: Ref<boolean> = ref(false)
-const keyStatus: Ref<Array<boolean>> = ref([false, false, false, false])
 
 // 要打开的串口信息
 const dataPortInfo = reactive({
-  name: 'COM1',
+  name: '',
   dataBits: 8,
   stopBits: 1,
   parity: 'none',
@@ -79,7 +84,9 @@ const dataPortInfo = reactive({
 
 // 从串口接受到数据
 ipcRenderer.on(IPC.ACCEPT_DATA_FROM_PORT, (_: Event, data: string) => {
-  keyStatus.value = data.split('').map((e: string) => Boolean(Number(e)))
+  data.split('').forEach((e) => {
+    key.value = e
+  })
 })
 
 // 获取串口列表
@@ -88,6 +95,9 @@ const getPortList = () => {
     .invoke(IPC.GET_PORT_LIST)
     .then((config: Array<PortInfo>) => {
       list.value = config
+      if (config.length) {
+        dataPortInfo.name = config[0].path
+      }
     })
     .catch((e: Error) => {
       message.destroy()
@@ -97,17 +107,8 @@ const getPortList = () => {
 
 // 页面挂载完毕
 onMounted(() => {
-  if (process.platform === 'win32') {
-    // 获取串口列表
-    getPortList()
-    // 实时获取串口列表
-    const timer = setInterval(getPortList, 1000)
-    // 页面关闭
-    onUnmounted(() => {
-      // 清除定时器
-      clearInterval(timer)
-    })
-  }
+  // 获取串口列表
+  getPortList()
 })
 
 // 打开串口
@@ -142,7 +143,7 @@ const closePort = () => {
 // 打开/关闭蜂鸣器
 const ringBuzzer = () => {
   ipcRenderer
-    .invoke(IPC.SEND_DATA_TO_PORT, 'action')
+    .invoke(IPC.SEND_DATA_TO_PORT, '1')
     .then(console.log)
     .catch((e: Error) => message.error(e.message))
 }
@@ -155,6 +156,21 @@ const ringBuzzer = () => {
   }
   .ant-btn {
     margin: 0 6px;
+  }
+  .k {
+    width: 32px;
+    height: 32px;
+    margin: 0 4px;
+    color: #000;
+    font-size: 20px;
+    font-weight: bold;
+    background: #fff;
+    border-radius: 4px;
+    border: 1px solid #aaa;
+    &.active {
+      color: #fff;
+      background: #f00;
+    }
   }
 }
 </style>
