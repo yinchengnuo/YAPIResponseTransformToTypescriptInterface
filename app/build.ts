@@ -27,7 +27,14 @@ const config: Configuration = {
     icon: 'src/assets/icon.png'
   },
   mac: {
-    icon: 'src/assets/icon.png'
+    icon: 'src/assets/icon.png',
+    extendInfo: {
+      'URL types': [
+        {
+          'URL Schemes': ['ts']
+        }
+      ]
+    }
   },
   electronDownload: {
     mirror: 'https://npm.taobao.org/mirrors/electron/'

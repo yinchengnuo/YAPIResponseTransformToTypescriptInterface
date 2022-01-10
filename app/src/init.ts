@@ -8,6 +8,7 @@ import { UPDATA_DOWNLOADED_NOT_INSTALLED } from './updata'
  * @return {*}
  */
 export default (window: BrowserWindow): void => {
+  app.setAsDefaultProtocolClient('ts')
   // 关闭提示
   window.once('close', (e) => {
     if (UPDATA_DOWNLOADED_NOT_INSTALLED) {

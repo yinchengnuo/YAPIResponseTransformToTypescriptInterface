@@ -22,12 +22,12 @@ interface NotificationConfig {
 
 // 开始检查更新
 ipcRenderer.on(IPC.UPDATA_CHECKING, (_: Event, config: NotificationConfig) => {
-  notification.open({ ...config })
+  console.log({ ...config })
 })
 
 // 检查更新出错
 ipcRenderer.on(IPC.UPDATA_ERROR, (_: Event, config: NotificationConfig, error: Error) => {
-  notification.open({ ...config })
+  console.log({ ...config })
   console.log(error)
 })
 
@@ -38,7 +38,7 @@ ipcRenderer.on(IPC.UPDATA_AVAILABLE, (_: Event, config: NotificationConfig) => {
 
 // 已经是新版本
 ipcRenderer.on(IPC.UPDATA_NOT_AVAILABLE, (_: Event, config: NotificationConfig) => {
-  notification.open({ ...config })
+  console.log({ ...config })
 })
 
 // 更新下载完毕
