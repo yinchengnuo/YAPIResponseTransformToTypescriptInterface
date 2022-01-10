@@ -16,7 +16,9 @@
     <a-divider />
     <a-form ref="refPortInfo" layout="inline" :model="dataPortInfo">
       <a-form-item has-feedback label="串口" name="name" :rules="[{ required: true, trigger: ['change', 'blur'], message: '串口名不能为空' }]">
-        <a-input v-model:value="dataPortInfo.name" allowClear style="width: 120px" />
+        <a-select v-model:value="dataPortInfo.name" style="width: 120px">
+          <a-select-option v-for="item in list" :key="item.productId" :value="item.productId">{{ item.productId }}</a-select-option>
+        </a-select>
       </a-form-item>
       <a-form-item has-feedback label="波特率" name="baudRate" :rules="[{ required: true, type: 'number', rigger: ['change', 'blur'], message: '波特率不能为空' }]">
         <a-input-number v-model:value="dataPortInfo.baudRate" allowClear style="width: 120px" />
@@ -48,10 +50,17 @@
     <h3>蜂鸣器测试（发送数据至8051）</h3>
     <a-divider />
     <a-button type="primary" @click="ringBuzzer">蜂鸣器</a-button>
+    <a-divider />
+    <h3>按键测试（从8051接收数据）</h3>
+    <a-divider />
+    <div class="flex">
+      <div v-for="item in 4" :key="item" class="flex k" :class="{ active: item === +key }">K{{ item + 1 }}</div>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
+/* eslint-disable no-unmodified-loop-condition */
 import IPC from '@/../app/src/IPC'
 import { message } from 'ant-design-vue'
 import { ref, Ref, reactive, onMounted } from 'vue'
@@ -61,12 +70,15 @@ const { ipcRenderer } = require('electron')
 interface PortInfo {
   portId: string;
   portName: string;
-  vendorId?: string;
-  productId?: string;
-  displayName?: string;
-  usbDriverName?: string;
+  vendorId: string;
+  productId: string;
+  displayName: string;
+  usbDriverName: string;
 }
 
+let port: any, reader: any, writer: any
+
+const key = ref('')
 const refPortInfo = ref()
 const list: Ref<Array<PortInfo>> = ref([])
 const isPortOpened: Ref<boolean> = ref(false)
@@ -74,7 +86,7 @@ const isPortOpened: Ref<boolean> = ref(false)
 
 // 要打开的串口信息
 const dataPortInfo = reactive({
-  name: 'COM1',
+  name: '',
   dataBits: 8,
   stopBits: 1,
   parity: 'none',
@@ -83,8 +95,10 @@ const dataPortInfo = reactive({
 
 // 从串口接受到数据
 ipcRenderer.on(IPC.GOT_PORT_LIST, (_: Event, portList: Array<PortInfo>) => {
-  console.log(portList, 'portList')
   list.value = portList
+  if (portList.length) {
+    dataPortInfo.name = portList[0].productId
+  }
 })
 
 // 获取串口列表
@@ -104,35 +118,37 @@ const openPort = () => {
     refPortInfo.value
       .validate()
       .then(() => {
-        ipcRenderer
-          .invoke(IPC.OPEN_PORT, dataPortInfo.name, { ...dataPortInfo })
-          .then(() => {
-            message.success('操作成功')
-            isPortOpened.value = true
+        ipcRenderer.invoke(IPC.SELECT_POR, { ...list.value.find((e) => e.productId === dataPortInfo.name) }).then(() => {
+          (navigator as any).serial.requestPort().then((_port: any) => {
+            port = _port
+            port.open(dataPortInfo).then(async () => {
+              message.success('操作成功')
+              reader = port.readable.getReader()
+              writer = port.writable.getWriter()
+              // eslint-disable-next-line no-unreachable-loop
+              while (port && port.readable) {
+                while (true) {
+                  let { value } = await reader.read()
+                  value = String.fromCharCode(value)
+                  key.value = value
+                }
+              }
+            })
           })
-          .catch((e: Error) => message.error(e.message))
+        })
       })
-      .catch()
+      .catch(console.log)
   }
 }
 
 // 关闭串口
 const closePort = () => {
-  ipcRenderer
-    .invoke(IPC.CLOSE_PORT)
-    .then(() => {
-      message.success('操作成功')
-      isPortOpened.value = false
-    })
-    .catch((e: Error) => message.error(e.message))
+  // port
 }
 
-// 打开/关闭蜂鸣器
+// 蜂鸣器
 const ringBuzzer = () => {
-  ipcRenderer
-    .invoke(IPC.SEND_DATA_TO_PORT, 'action')
-    .then(console.log)
-    .catch((e: Error) => message.error(e.message))
+  writer.write(new Uint8Array([0x0]))
 }
 </script>
 
@@ -143,6 +159,21 @@ const ringBuzzer = () => {
   }
   .ant-btn {
     margin: 0 6px;
+  }
+  .k {
+    width: 32px;
+    height: 32px;
+    margin: 0 4px;
+    color: #000;
+    font-size: 16px;
+    font-weight: bold;
+    background: #fff;
+    border-radius: 4px;
+    border: 1px solid #aaa;
+    &.active {
+      color: #fff;
+      background: #f00;
+    }
   }
 }
 </style>

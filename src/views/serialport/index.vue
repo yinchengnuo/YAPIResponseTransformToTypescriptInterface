@@ -162,7 +162,7 @@ const ringBuzzer = () => {
     height: 32px;
     margin: 0 4px;
     color: #000;
-    font-size: 20px;
+    font-size: 16px;
     font-weight: bold;
     background: #fff;
     border-radius: 4px;
