@@ -2,7 +2,11 @@
   <div class="port flexc">
     <h2>Electron 串口通信(webserial)</h2>
     <a-divider />
-    <h3>串口列表</h3>
+    <h3 class="w100 flex flex_sb">
+      <span />
+      <span>串口列表</span>
+      <a-button type="primary" @click="getPortList">刷新串口列表</a-button>
+    </h3>
     <a-table class="w100" rowKey="portId" :data-source="list" bordered :pagination="false">
       <a-table-column key="portId" title="portId" data-index="portId" />
       <a-table-column key="portName" title="portName" data-index="portName" />
@@ -49,7 +53,7 @@
     <a-divider />
     <h3>蜂鸣器测试（发送数据至8051）</h3>
     <a-divider />
-    <a-button type="primary" @click="ringBuzzer">蜂鸣器</a-button>
+    <a-button type="primary" :disabled="!isPortOpened" @click="ringBuzzer">蜂鸣器</a-button>
     <a-divider />
     <h3>按键测试（从8051接收数据）</h3>
     <a-divider />
@@ -60,7 +64,6 @@
 </template>
 
 <script setup lang="ts">
-/* eslint-disable no-unmodified-loop-condition */
 import IPC from '@/../app/src/IPC'
 import { message } from 'ant-design-vue'
 import { ref, Ref, reactive, onMounted } from 'vue'
@@ -82,7 +85,6 @@ const key = ref('')
 const refPortInfo = ref()
 const list: Ref<Array<PortInfo>> = ref([])
 const isPortOpened: Ref<boolean> = ref(false)
-// const keyStatus: Ref<Array<boolean>> = ref([false, false, false, false])
 
 // 要打开的串口信息
 const dataPortInfo = reactive({
@@ -119,22 +121,35 @@ const openPort = () => {
       .validate()
       .then(() => {
         ipcRenderer.invoke(IPC.SELECT_POR, { ...list.value.find((e) => e.productId === dataPortInfo.name) }).then(() => {
-          (navigator as any).serial.requestPort().then((_port: any) => {
-            port = _port
-            port.open(dataPortInfo).then(async () => {
-              message.success('操作成功')
-              reader = port.readable.getReader()
-              writer = port.writable.getWriter()
-              // eslint-disable-next-line no-unreachable-loop
-              while (port && port.readable) {
-                while (true) {
-                  let { value } = await reader.read()
-                  value = String.fromCharCode(value)
-                  key.value = value
-                }
-              }
+          (navigator as any).serial
+            .requestPort()
+            .then((_port: any) => {
+              port = _port
+              port
+                .open(dataPortInfo)
+                .then(async () => {
+                  message.success('操作成功')
+                  isPortOpened.value = true
+                  reader = port.readable.getReader()
+                  writer = port.writable.getWriter()
+                  if (port && port.readable) {
+                    while (isPortOpened.value) {
+                      let { value } = await reader.read()
+                      value = String.fromCharCode(value)
+                      key.value = value
+                      if (!isPortOpened.value) {
+                        await Promise.all([reader.releaseLock(), writer.releaseLock()])
+                        await reader.close()
+                        await port.close()
+                      }
+                    }
+                  }
+                })
+                .catch(() => {
+                  isPortOpened.value = false
+                })
             })
-          })
+            .catch(console.log)
         })
       })
       .catch(console.log)
@@ -143,7 +158,8 @@ const openPort = () => {
 
 // 关闭串口
 const closePort = () => {
-  // port
+  isPortOpened.value = false
+  message.success('操作成功')
 }
 
 // 蜂鸣器

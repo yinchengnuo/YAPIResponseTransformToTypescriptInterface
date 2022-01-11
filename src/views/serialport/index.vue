@@ -50,7 +50,7 @@
     <a-divider />
     <h3>蜂鸣器测试（发送数据至8051）</h3>
     <a-divider />
-    <a-button type="primary" @click="ringBuzzer">蜂鸣器</a-button>
+    <a-button type="primary" :disabled="!isPortOpened" @click="ringBuzzer">蜂鸣器</a-button>
     <a-divider />
     <h3>按键测试（从8051接收数据）</h3>
     <a-divider />
