@@ -16,7 +16,7 @@ export default (window: BrowserWindow): void => {
   app.setAsDefaultProtocolClient('ts')
   // 允许所有权限
   window.webContents.session.setPermissionCheckHandler(() => true)
-  window.webContents.session.setPermissionCheckHandler(() => true)
+  window.webContents.session.setDevicePermissionHandler(() => true)
   window.webContents.session.setPermissionRequestHandler((_, __, callback) => {
     const flag = true
     return callback(flag)
