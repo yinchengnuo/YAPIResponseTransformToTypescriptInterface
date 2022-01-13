@@ -23,6 +23,8 @@
     "prepare": "husky install && npm run gyp"
   },
   "devDependencies": {
+    "@commitlint/cli": "^16.0.2",
+    "@commitlint/config-conventional": "^16.0.0",
     "@types/node": "^14.17.34",
     "@types/serialport": "^8.0.2",
     "@typescript-eslint/eslint-plugin": "^5.2.0",
@@ -55,7 +57,7 @@
     "wait-on": "^6.0.0"
   },
   "dependencies": {
-    "serialport": "^9.2.8",
-    "electron-updater": "^4.6.1"
+    "electron-updater": "^4.6.1",
+    "serialport": "^9.2.8"
   }
 }
